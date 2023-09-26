@@ -12,10 +12,11 @@ const connection = mysql.createConnection({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || 'root',
+  database: 'Bike_Travel_User',
   port: process.env.DB_PORT || 3306
 });
 
-connection.query('CREATE DATABASE IF NOT EXISTS bike_travel_user', function(err, results) {
+connection.query('CREATE DATABASE IF NOT EXISTS Bike_Travel_User', function(err, results) {
     if (err) {
       console.error(err);
     } else {
