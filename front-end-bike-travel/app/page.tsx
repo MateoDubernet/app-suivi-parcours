@@ -4,8 +4,6 @@ import {
   Box,
   Button,
   Flex,
-  FormControl,
-  FormLabel,
   Input,
   InputGroup,
   InputRightElement,
@@ -28,7 +26,6 @@ export default function Home() {
   const handleEmail = () => (e: any) => {
     setEmail(e.target.value);
   };
-  console.log(Password);
   const handdleRedirection = () => {
     router.push("/dashboard");
   };
