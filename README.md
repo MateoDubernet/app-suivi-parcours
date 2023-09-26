@@ -10,5 +10,5 @@ Authentification :
         - npm i mysql2
         - npm i body-parser
 
-    - fichier index.js:
+    - fichier index.js et .env:
         - Vérifier que les paramètres de connexion à la base de donnée soit les bons
