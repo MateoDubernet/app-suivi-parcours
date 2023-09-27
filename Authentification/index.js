@@ -23,6 +23,17 @@ connection.query('CREATE DATABASE IF NOT EXISTS Bike_Travel_User', function(err,
     }
 });
 
+connection.query('USE Bike_Travel_User')
+
+connection.query("CREATE TABLE IF NOT EXISTS users ("
+  + "`id` BIGINT(20) NOT NULL AUTO_INCREMENT,"
+  + "`nom` VARCHAR(100) NOT NULL,"
+  + "`prenom` VARCHAR(100) NOT NULL,"
+  + "`email` VARCHAR(100) NOT NULL,"
+  + "`password` VARCHAR(100) NOT NULL,"
+  + "PRIMARY KEY (`id`) USING BTREE)"
+)
+
 connection.end();
 
 (async () => {
@@ -35,8 +46,20 @@ app.use('/api/user', userRouter)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.json({ mess: "Bienvenue sur Bike_Travel_User" })
+app.get('/users', (req, res) => {
+    res.json({ mess: "Get Users" })
+})
+
+app.post('/users', (req, res) => {
+  res.json({ mess: "Add Users" })
+})
+
+app.put('/users/:id', (req, res) => {
+  res.json({ mess: "Update User" })
+})
+
+app.delete('/users/:id', (req, res) => {
+  res.json({ mess: "Delete User" })
 })
 
 app.listen(port, () => {
