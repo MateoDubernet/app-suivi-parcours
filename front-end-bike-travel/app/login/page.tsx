@@ -4,9 +4,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
+  const userApiUrl = 'http://localhost:4000/user'
   const router = useRouter();
   const [show, setShow] = useState(false);
-  const [Password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
   const handleClick = () => setShow(!show);
@@ -20,8 +21,22 @@ export default function Login() {
     console.log("Email :", email);
   };
 
-  const handdleRedirection = (route: string) => {
-    router.push(`${route}`);
+  const handleLogin = (route: string) => {
+    fetch(`${userApiUrl}/connexion`, {
+      method: "POST",
+      body: JSON.stringify({'email': email, 'password': password}),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => res.text())
+    .then(text => {
+        console.log(text);
+    })
+    .catch(function(err) {
+      console.log("Something went wrong!", err);
+    });
+    // router.push(`${route}`);
   };
 
   return (
@@ -86,7 +101,7 @@ export default function Login() {
                 color={"white"}
                 width={"full"}
                 backgroundColor={"#ec7402"}
-                onClick={() => handdleRedirection("/dashboard")}
+                onClick={() => handleLogin("/dashboard")}
                 rounded={"full"}>
                     Connexion
                 </Button>
@@ -97,7 +112,7 @@ export default function Login() {
                 color={"white"}
                 width={"full"}
                 backgroundColor={"#ec7402"}
-                onClick={() => handdleRedirection("/register")}
+                onClick={() => handleLogin("/register")}
                 rounded={"full"}>
                     M'inscrire
                 </Button>
