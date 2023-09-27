@@ -10,11 +10,14 @@ export default function Login() {
   const [email, setEmail] = useState("");
 
   const handleClick = () => setShow(!show);
-  const handlechange = (e: any) => {
-    setPassword(e.target.value);
+
+  const handlePassword = (password: string) => {
+    setPassword(password);
+    console.log("Mot de passe :", password);
   };
-  const handleEmail = () => (e: any) => {
-    setEmail(e.target.value);
+  const handleEmail = (email: string) => {
+    setEmail(email);
+    console.log("Email :", email);
   };
 
   const handdleRedirection = (route: string) => {
@@ -38,32 +41,32 @@ export default function Login() {
       >
         <VStack
           w={"19rem"}
+          h={"36.375rem"}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
         >
-          
-          <InputGroup>
-          <Text w={"full"}>Identifiant</Text>
+          <Text w={"full"} color={'black'}>Email</Text>
+          <InputGroup color={'black'}>
             <Input
               rounded={"none"}
               border={"none"}
               variant={"unstyled"}
               borderBottom={"2px"}
               borderColor={"#ec7402"}
-              onChange={handleEmail}
+              onChange={(e) => handleEmail(e.target.value)}
             ></Input>
           </InputGroup>
 
-          <Text w={"full"}>MDP</Text>
-          <InputGroup>
+          <Text w={"full"} color={'black'}>Mot de passe</Text>
+          <InputGroup color={'black'}>
             <Input
               variant={"unstyled"}
               rounded={"none"}
               border={"none"}
               borderBottom={"2px"}
               borderColor={"#ec7402"}
-              onChange={handlechange}
+              onChange={(e) => handlePassword(e.target.value)}
               type={show ? "text" : "password"}
             ></Input>
             <InputRightElement width="4.5rem" pb={"3rem"}>
@@ -80,8 +83,7 @@ export default function Login() {
             width={"full"}
             backgroundColor={"#ec7402"}
             onClick={() => handdleRedirection("/dashboard")}
-            rounded={"full"}
-          >
+            rounded={"full"}>
             Connexion
           </Button>
 

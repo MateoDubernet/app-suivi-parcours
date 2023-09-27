@@ -143,8 +143,7 @@ function Register() {
             width={"full"}
             backgroundColor={"#ec7402"}
             onClick={() => handdleRedirection("/dashboard")}
-            rounded={"full"}
-          >
+            rounded={"full"}>
             Valider
           </Button>
 
@@ -155,8 +154,7 @@ function Register() {
             width={"full"}
             backgroundColor={"#ec7402"}
             onClick={() => handdleRedirection("/login")}
-            rounded={"full"}
-          >
+            rounded={"full"}>
             Me connecter
           </Button>
         </VStack>

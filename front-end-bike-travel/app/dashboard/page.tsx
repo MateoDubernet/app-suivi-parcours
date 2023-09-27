@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import Map from '@/component/atoms/windows'
 import { Button } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation';
@@ -21,14 +21,10 @@ export default function dashboard() {
             width={"full"}
             backgroundColor={"#ec7402"}
             onClick={() => handdleRedirection("/login")}
-            rounded={"full"}
-          >
+            rounded={"full"}>
             Déconnexion
       </Button>
-
       <Map />
-    
     </>
-   
   )
 }
