@@ -14,28 +14,28 @@ function Register() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [adress, setAdress] = useState("");
 
-  const handleFirstname = (e: any) => {
-    setFirstname(e.target.value);
+  const handleFirstname = (firstname: string) => {
+    setFirstname(firstname);
   };
 
-  const handleLastname = (e: any) => {
-    setLastname(e.target.value);
+  const handleLastname = (lastname: string) => {
+    setLastname(lastname);
   };
 
-  const handlePassword = (e: any) => {
-    setPassword(e.target.value);
+  const handlePassword = (password: string) => {
+    setPassword(password);
   };
 
-  const handleEmail = (e: any) => {
-    setEmail(e.target.value);
+  const handleEmail = (email: string) => {
+    setEmail(email);
   };
 
-  const handlePhone = (e: any) => {
-    setPhoneNumber(e.target.value);
+  const handlePhone = (phone: string) => {
+    setPhoneNumber(phone.toString());
   };
 
-  const handleAdress = (e: any) => {
-    setAdress(e.target.value);
+  const handleAdress = (adress: string) => {
+    setAdress(adress);
   };
 
   const handdleRedirection = (route: string) => {
@@ -74,7 +74,7 @@ function Register() {
             variant={"unstyled"}
             borderBottom={"2px"}
             borderColor={"#ec7402"}
-            onChange={handleEmail}>
+            onChange={(e) => handleEmail(e.target.value)}>
             </Input>
           </InputGroup>
 
@@ -87,7 +87,7 @@ function Register() {
             variant={"unstyled"}
             borderBottom={"2px"}
             borderColor={"#ec7402"}
-            onChange={handleLastname}>
+            onChange={(e) => handleLastname(e.target.value)}>
             </Input>
           </InputGroup>
 
@@ -100,7 +100,7 @@ function Register() {
             border={"none"}
             borderBottom={"2px"}
             borderColor={"#ec7402"}
-            onChange={handleFirstname}>
+            onChange={(e) => handleFirstname(e.target.value)}>
             </Input>
           </InputGroup>
 
@@ -113,10 +113,10 @@ function Register() {
             border={"none"}
             borderBottom={"2px"}
             borderColor={"#ec7402"}
-            onChange={handlePassword}
+            onChange={(e) => handlePassword(e.target.value)}
             type={show ? "text" : "password"}>
             </Input>
-            
+
             <InputRightElement width="4.5rem" pb={"3rem"}>
               <Button size="sm" onClick={handleClick}>
                 {show ? "Hide" : "Show"}
@@ -129,12 +129,12 @@ function Register() {
             <Input
             required
             rounded={"none"}
-            type="tel"
+            type="number"
             border={"none"}
             variant={"unstyled"}
             borderBottom={"2px"}
             borderColor={"#ec7402"}
-            onChange={handlePhone}>
+            onChange={(e) => handlePhone(e.target.value)}>
             </Input>
           </InputGroup>
 
@@ -147,7 +147,7 @@ function Register() {
             variant={"unstyled"}
             borderBottom={"2px"}
             borderColor={"#ec7402"}
-            onChange={handleAdress}>
+            onChange={(e) => handleAdress(e.target.value)}>
             </Input>
           </InputGroup>
 
