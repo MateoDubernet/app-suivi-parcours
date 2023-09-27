@@ -1,16 +1,10 @@
 "use client";
-import {
-  Input,
-  InputGroup,
-  Flex,
-  VStack,
-  Text,
-  InputRightElement,
-  Button,
-} from "@chakra-ui/react";
+import { Input, InputGroup, Flex, VStack, Text, InputRightElement, Button } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function Register() {
+  const router = useRouter();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const [fristname, setFirstname] = useState("");
@@ -23,15 +17,19 @@ function Register() {
   const handleFirstname = (e: any) => {
     setFirstname(e.target.value);
   };
+
   const handleLastname = (e: any) => {
     setLastname(e.target.value);
   };
+
   const handlePassword = (e: any) => {
     setPassword(e.target.value);
   };
+
   const handleEmail = (e: any) => {
     setEmail(e.target.value);
   };
+
   const handlePhone = (e: any) => {
     setPhoneNumber(e.target.value);
   };
@@ -39,6 +37,11 @@ function Register() {
   const handleAdress = (e: any) => {
     setAdress(e.target.value);
   };
+
+  const handdleRedirection = (route: string) => {
+    router.push(`${route}`);
+  };
+
   return (
     <Flex
       minH={"100vh"}
@@ -132,6 +135,30 @@ function Register() {
               onChange={handleAdress}
             ></Input>
           </InputGroup>
+
+          <Button
+            variant={"unstyled"}
+            mt={5}
+            color={"white"}
+            width={"full"}
+            backgroundColor={"#ec7402"}
+            onClick={() => handdleRedirection("/dashboard")}
+            rounded={"full"}
+          >
+            Valider
+          </Button>
+
+          <Button
+            variant={"unstyled"}
+            mt={5}
+            color={"white"}
+            width={"full"}
+            backgroundColor={"#ec7402"}
+            onClick={() => handdleRedirection("/login")}
+            rounded={"full"}
+          >
+            Me connecter
+          </Button>
         </VStack>
       </VStack>
     </Flex>
