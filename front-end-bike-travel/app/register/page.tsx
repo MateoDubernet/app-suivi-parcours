@@ -44,117 +44,132 @@ function Register() {
 
   return (
     <Flex
-      minH={"100vh"}
-      backgroundColor={"white"}
-      align={"center"}
-      justify={"center"}
-      bg={"#0b5a6e"}
-    >
+    minH={"100vh"}
+    backgroundColor={"white"}
+    align={"center"}
+    justify={"center"}
+    bg={"#0b5a6e"}>
+
       <VStack
-        w={"31.375rem"}
-        h={"36.375rem"}
-        rounded={"xl"}
-        spacing={"6rem"}
-        bg={"white"}
-      >
+      w={"31.375rem"}
+      h={"36.375rem"}
+      rounded={"xl"}
+      spacing={"6rem"}
+      bg={"white"}>
+
         <VStack
-          w={"19rem"}
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <Text w={"full"}>Email</Text>
-          <InputGroup>
+        w={"19rem"}
+        h={"36.375rem"}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}>
+
+          <Text color={'black'} w={"full"}>Email</Text>
+          <InputGroup color={'black'}>
             <Input
-              rounded={"none"}
-              border={"none"}
-              variant={"unstyled"}
-              borderBottom={"2px"}
-              borderColor={"#ec7402"}
-              onChange={handleEmail}
-            ></Input>
+            required
+            type="email"
+            rounded={"none"}
+            border={"none"}
+            variant={"unstyled"}
+            borderBottom={"2px"}
+            borderColor={"#ec7402"}
+            onChange={handleEmail}>
+            </Input>
           </InputGroup>
-          <Text w={"full"}>Prenom</Text>
-          <InputGroup>
+
+          <Text color={'black'} w={"full"}>Nom</Text>
+          <InputGroup color={'black'}>
             <Input
-              variant={"unstyled"}
-              rounded={"none"}
-              border={"none"}
-              borderBottom={"2px"}
-              borderColor={"#ec7402"}
-              onChange={handleFirstname}
-            ></Input>
+            required
+            rounded={"none"}
+            border={"none"}
+            variant={"unstyled"}
+            borderBottom={"2px"}
+            borderColor={"#ec7402"}
+            onChange={handleLastname}>
+            </Input>
           </InputGroup>
-          <Text w={"full"}>Nom</Text>
-          <InputGroup>
+
+          <Text color={'black'} w={"full"}>Prenom</Text>
+          <InputGroup color={'black'}>
             <Input
-              rounded={"none"}
-              border={"none"}
-              variant={"unstyled"}
-              borderBottom={"2px"}
-              borderColor={"#ec7402"}
-              onChange={handleLastname}
-            ></Input>
+            required
+            variant={"unstyled"}
+            rounded={"none"}
+            border={"none"}
+            borderBottom={"2px"}
+            borderColor={"#ec7402"}
+            onChange={handleFirstname}>
+            </Input>
           </InputGroup>
-          <Text w={"full"}>Mot de passe</Text>
-          <InputGroup>
+
+          <Text color={'black'} w={"full"}>Mot de passe</Text>
+          <InputGroup color={'black'}>
             <Input
-              variant={"unstyled"}
-              rounded={"none"}
-              border={"none"}
-              borderBottom={"2px"}
-              borderColor={"#ec7402"}
-              onChange={handlePassword}
-              type={show ? "text" : "password"}
-            ></Input>
+            required
+            variant={"unstyled"}
+            rounded={"none"}
+            border={"none"}
+            borderBottom={"2px"}
+            borderColor={"#ec7402"}
+            onChange={handlePassword}
+            type={show ? "text" : "password"}>
+            </Input>
+            
             <InputRightElement width="4.5rem" pb={"3rem"}>
               <Button size="sm" onClick={handleClick}>
                 {show ? "Hide" : "Show"}
               </Button>
             </InputRightElement>
           </InputGroup>
-          <Text w={"full"}>Numéro de télephone</Text>
-          <InputGroup>
+
+          <Text color={'black'} w={"full"}>Numéro de télephone</Text>
+          <InputGroup color={'black'}>
             <Input
-              rounded={"none"}
-              border={"none"}
-              variant={"unstyled"}
-              borderBottom={"2px"}
-              borderColor={"#ec7402"}
-              onChange={handlePhone}
-            ></Input>
+            required
+            rounded={"none"}
+            type="tel"
+            border={"none"}
+            variant={"unstyled"}
+            borderBottom={"2px"}
+            borderColor={"#ec7402"}
+            onChange={handlePhone}>
+            </Input>
           </InputGroup>
-          <Text w={"full"}>Adresse</Text>
-          <InputGroup>
+
+          <Text color={'black'} w={"full"}>Adresse</Text>
+          <InputGroup color={'black'}>
             <Input
-              rounded={"none"}
-              border={"none"}
-              variant={"unstyled"}
-              borderBottom={"2px"}
-              borderColor={"#ec7402"}
-              onChange={handleAdress}
-            ></Input>
+            required
+            rounded={"none"}
+            border={"none"}
+            variant={"unstyled"}
+            borderBottom={"2px"}
+            borderColor={"#ec7402"}
+            onChange={handleAdress}>
+            </Input>
           </InputGroup>
 
           <Button
-            variant={"unstyled"}
-            mt={5}
-            color={"white"}
-            width={"full"}
-            backgroundColor={"#ec7402"}
-            onClick={() => handdleRedirection("/dashboard")}
-            rounded={"full"}>
+          variant={"unstyled"}
+          mt={5}
+          color={"white"}
+          width={"full"}
+          backgroundColor={"#ec7402"}
+          onClick={() => handdleRedirection("/dashboard")}
+          rounded={"full"}>
             Valider
           </Button>
 
           <Button
-            variant={"unstyled"}
-            mt={5}
-            color={"white"}
-            width={"full"}
-            backgroundColor={"#ec7402"}
-            onClick={() => handdleRedirection("/login")}
-            rounded={"full"}>
+          variant={"unstyled"}
+          mt={5}
+          color={"white"}
+          width={"full"}
+          backgroundColor={"#ec7402"}
+          onClick={() => handdleRedirection("/login")}
+          rounded={"full"}>
             Me connecter
           </Button>
         </VStack>
