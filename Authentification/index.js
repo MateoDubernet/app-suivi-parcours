@@ -46,20 +46,20 @@ app.use('/api/user', userRouter)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/users', (req, res) => {
-    res.json({ mess: "Get Users" })
+app.get('/user/:id', (req, res) => {
+    res.json({ mess: `GET request` })
 })
 
-app.post('/users', (req, res) => {
-  res.json({ mess: "Add Users" })
+app.post('/user/connexion', (req, res) => {
+  res.json({ mess: `POST User email: ${req.body.email}, password: ${req.body.password}` })
 })
 
-app.put('/users/:id', (req, res) => {
-  res.json({ mess: "Update User" })
+app.put('/user/:id', (req, res) => {
+  res.json({ mess: "PUT request" })
 })
 
-app.delete('/users/:id', (req, res) => {
-  res.json({ mess: "Delete User" })
+app.delete('/user/:id', (req, res) => {
+  res.json({ mess: "DELETE request" })
 })
 
 app.listen(port, () => {
