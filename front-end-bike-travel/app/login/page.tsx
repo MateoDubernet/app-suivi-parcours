@@ -82,7 +82,7 @@ export default function Login() {
             onClick={() => handdleRedirection("/dashboard")}
             rounded={"full"}
           >
-            Me connecter
+            Connexion
           </Button>
 
           <Button
