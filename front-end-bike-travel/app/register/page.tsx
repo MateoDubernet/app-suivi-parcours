@@ -59,13 +59,16 @@ function Register() {
         body: JSON.stringify(fetchData),
         headers: {'Content-Type': 'application/json'},
       })
-      .then(res => res.text())
-      .then(text => {
-        if (text === JSON.stringify(fetchData)) {
+      .then(res => {
+        if (res.status != 200) {
+          res.text().then(text => {
+            alert(`Erreur ${res.status}: ${text}`)
+          })
+       } else {
+        res.text().then(text => {
           handdleRedirection('/login')
-        } else {
-          alert('Un problème à été rencontrée')
-        }
+        })
+       }
       })
       .catch(function(err) {
         console.log("Something went wrong!", err);
