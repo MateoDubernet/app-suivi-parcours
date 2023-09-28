@@ -9,15 +9,11 @@ app.use(bodyParser.json());
 
 // Routes
 const itinerairesRoutes = require("./routes/itineraires");
+const userRoute = require("./routes/user");
 
-app.use(
-  cors({
-    origin: "http://localhost:3001",
-    methods: ["GET", "POST"], // Vous pouvez spécifier les méthodes HTTP que vous souhaitez autoriser
-    allowedHeaders: ["Content-Type"],
-  })
-);
+app.use(cors());
 app.use("/itineraire", itinerairesRoutes);
+app.use("/itineraire", userRoute);
 
 // Démarrer le serveur
 const PORT = process.env.PORT || 3000;

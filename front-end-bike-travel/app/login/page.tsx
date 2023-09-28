@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
-  const userApiUrl = 'http://localhost:4000/user'
+  const userApiUrl = 'http://localhost:3000'
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [password, setPassword] = useState("");
@@ -24,26 +24,34 @@ export default function Login() {
   };
 
   const handleLogin = () => {
-      fetch(`${userApiUrl}/connexion`, {
-        method: "POST",
-        body: JSON.stringify({'email': email, 'password': password}),
-        headers: {'Content-Type': 'application/json'},
-      })
-      .then(res => {
-        if (res.status != 200) {
-          res.text().then(text => {
-            alert(`Erreur ${res.status}: ${text}`)
-          })
-       } else {
-        res.text().then(text => {
-          handdleRedirection('/dashboard')
-        })
-       }
-      })
-      .catch(function(err) {
-        console.log("Something went wrong!", err);
-      });
+  const requestData = {
+    email: email,
+    password: password,
   };
+
+  fetch(`${userApiUrl}/itineraire/login`, {
+    method: "POST",
+    body: JSON.stringify(requestData), // Convertir les données en JSON une seule fois
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      if (res.status !== 200) {
+        res.text().then((text) => {
+          alert(`Erreur ${res.status}: ${text}`);
+        });
+      } else {
+        res.text().then((text) => {
+          handdleRedirection('/dashboard');
+        });
+      }
+    })
+    .catch(function (err) {
+      console.log("Something went wrong!", err);
+    });
+};
+
 
   return (
     <Flex

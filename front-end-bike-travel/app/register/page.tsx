@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function Register() {
-  const userApiUrl = 'http://localhost:4000/user'
+  const userApiUrl = 'http://localhost:3000'
   const router = useRouter();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
@@ -54,7 +54,7 @@ function Register() {
         'address': address
       }
   
-      fetch(`${userApiUrl}/register`, {
+      fetch(`${userApiUrl}/itineraire/register`, {
         method: "POST",
         body: JSON.stringify(fetchData),
         headers: {'Content-Type': 'application/json'},
