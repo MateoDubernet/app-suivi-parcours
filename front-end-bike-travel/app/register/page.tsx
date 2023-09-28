@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function Register() {
-  const userApiUrl = 'http://localhost:4000/user'
+  const userApiUrl = 'http://localhost:4000/api/user'
   const router = useRouter();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);

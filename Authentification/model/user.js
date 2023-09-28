@@ -11,19 +11,19 @@ const User = sequelize?.define('utilisateurs', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    Name: {
+    Firstname: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    Surname: {
+    Lastname: {
         type: Sequelize.STRING,
         allowNull:false
     },
     Address: {
         type: Sequelize.STRING
     },
-    Admin: {
-        type: Sequelize.BOOLEAN,
+    PhoneNumber: {
+        type: Sequelize.STRING,
         allowNull:false
     }
 }, {
