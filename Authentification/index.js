@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const { sequelize } = require('./data/index');
 const userRouter = require('./router/user');
 const app = express();
 const { port } = require('./config');
@@ -8,14 +7,14 @@ const cors = require('cors')
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 
-const connection = mysql.createConnection({
+const connectionWithoutDB = mysql.createConnection({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || 'root',
   port: process.env.DB_PORT || 3306
 });
 
-connection.query('CREATE DATABASE IF NOT EXISTS Bike_Travel_User', function(err, results) {
+connectionWithoutDB.query('CREATE DATABASE IF NOT EXISTS Bike_Travel_User', function(err, results) {
     if (err) {
       console.error(err);
     } else {
@@ -23,18 +22,22 @@ connection.query('CREATE DATABASE IF NOT EXISTS Bike_Travel_User', function(err,
     }
 });
 
-connection.query('USE Bike_Travel_User')
+// connection.query('USE Bike_Travel_User')
 
-connection.query("CREATE TABLE IF NOT EXISTS users ("
-  + "`id` BIGINT(20) NOT NULL AUTO_INCREMENT,"
-  + "`nom` VARCHAR(100) NOT NULL,"
-  + "`prenom` VARCHAR(100) NOT NULL,"
-  + "`email` VARCHAR(100) NOT NULL,"
-  + "`password` VARCHAR(100) NOT NULL,"
-  + "PRIMARY KEY (`id`) USING BTREE)"
-)
+// connection.query("CREATE TABLE IF NOT EXISTS users ("
+//   + "`id` BIGINT(20) NOT NULL AUTO_INCREMENT,"
+//   + "`nom` VARCHAR(100) NOT NULL,"
+//   + "`prenom` VARCHAR(100) NOT NULL,"
+//   + "`email` VARCHAR(100) NOT NULL,"
+//   + "`password` VARCHAR(100) NOT NULL,"
+//   + "PRIMARY KEY (`id`) USING BTREE)"
+// )
 
-connection.end();
+// connection.end();
+
+connectionWithoutDB.end();
+
+const { sequelize } = require('./data/index');
 
 (async () => {
     await sequelize?.sync({ force: false });
