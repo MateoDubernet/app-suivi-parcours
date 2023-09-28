@@ -24,22 +24,25 @@ export default function Login() {
   };
 
   const handleLogin = () => {
-    if (email && password) {
       fetch(`${userApiUrl}/connexion`, {
         method: "POST",
         body: JSON.stringify({'email': email, 'password': password}),
         headers: {'Content-Type': 'application/json'},
       })
-      .then(res => res.text())
-      .then(text => {
-          console.log(text);
+      .then(res => {
+        if (res.status != 200) {
+          res.text().then(text => {
+            alert(`Erreur ${res.status}: ${text}`)
+          })
+       } else {
+        res.text().then(text => {
+          handdleRedirection('/dashboard')
+        })
+       }
       })
       .catch(function(err) {
         console.log("Something went wrong!", err);
       });
-    } else {
-      alert('Tous les champs doivent être remplis')
-    }
   };
 
   return (
