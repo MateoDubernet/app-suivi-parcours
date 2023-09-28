@@ -1,16 +1,20 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('bike_travel_user', process.env.DB_USER, process.env.DB_PASSWORD, {
-    host: process.env.DB_HOST || 'localhost',
-    dialect: 'mysql'
-  });
+setTimeout(() => {
+    const sequelize = new Sequelize('bike_travel_user', process.env.DB_USER, process.env.DB_PASSWORD, {
+        host: process.env.DB_HOST || 'localhost',
+        dialect: 'mysql'
+    });
+    
+    sequelize.authenticate().then(() => {
+    
+        console.log('Connection has been established successfully.');
+    }).catch(error => {
+    
+        console.error('Unable to connect to the database:', error);
+    })
 
-sequelize.authenticate().then(() => {
+    module.exports = { sequelize }
+}, 1000)
 
-    console.log('Connection has been established successfully.');
-}).catch(error => {
 
-    console.error('Unable to connect to the database:', error);
-})
-
-module.exports = { sequelize }

@@ -11,18 +11,18 @@ async function getUserByEmail(req, res) {
 }
 
 async function addUser(req, res) {
-    if (!req.body.Email || !req.body.Password || !req.body.Name || !req.body.Surname || !req.body.Admin) {
+    if (!req.body.email || !req.body.password || !req.body.firstname || !req.body.lastname || !req.body.phoneNumber) {
       res.status(400).json({ mess: "Champs obligatoires : Email, Mot de passe, Prenom, Nom et Role." });
       return;
     }
   
     const createdUser = await User.create({
-      Email: req.body.Email,
-      Password: req.body.Password,
-      Name: req.body.Name,
-      Surname: req.body.Surname,
+      Email: req.body.email,
+      Password: req.body.password,
+      Firstname: req.body.firstname,
+      Lastname: req.body.lastname,
       Address: req.body.Address,
-      Admin: req.body.Admin
+      PhoneNumber: req.body.phoneNumber
     });
   
     setTimeout(async () => {
@@ -70,7 +70,7 @@ async function connectUser(req, res) {
         res.status(403).json({ mess: "Utilisateur ou mot de passe incorrect." })
         return
     }
-    var token = jwt.sign({ ...user }, 'ma cle');
+    var token = jwt.sign({ ...user }, 'ma clé');
     res.json({ token })
 }
 

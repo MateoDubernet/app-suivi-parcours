@@ -7,7 +7,7 @@ function auth(req, res, next) {
     const token = req.headers.authorization.split(" ")[1]
     try {
 
-        const user = jwt.verify(token, 'Ma cle');
+        const user = jwt.verify(token, 'Ma clés');
         req.user = user
         next()
     }

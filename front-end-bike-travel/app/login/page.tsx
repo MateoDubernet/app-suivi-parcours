@@ -14,29 +14,35 @@ export default function Login() {
 
   const handlePassword = (password: string) => {
     setPassword(password);
-    console.log("Mot de passe :", password);
   };
   const handleEmail = (email: string) => {
     setEmail(email);
-    console.log("Email :", email);
   };
 
-  const handleLogin = (route: string) => {
-    fetch(`${userApiUrl}/connexion`, {
-      method: "POST",
-      body: JSON.stringify({'email': email, 'password': password}),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-    .then(res => res.text())
-    .then(text => {
-        console.log(text);
-    })
-    .catch(function(err) {
-      console.log("Something went wrong!", err);
-    });
-    // router.push(`${route}`);
+  const handdleRedirection = (route: string) => {
+    router.push(`${route}`);
+  };
+
+  const handleLogin = () => {
+      fetch(`${userApiUrl}/connexion`, {
+        method: "POST",
+        body: JSON.stringify({'email': email, 'password': password}),
+        headers: {'Content-Type': 'application/json'},
+      })
+      .then(res => {
+        if (res.status != 200) {
+          res.text().then(text => {
+            alert(`Erreur ${res.status}: ${text}`)
+          })
+       } else {
+        res.text().then(text => {
+          handdleRedirection('/dashboard')
+        })
+       }
+      })
+      .catch(function(err) {
+        console.log("Something went wrong!", err);
+      });
   };
 
   return (
@@ -101,7 +107,7 @@ export default function Login() {
                 color={"white"}
                 width={"full"}
                 backgroundColor={"#ec7402"}
-                onClick={() => handleLogin("/dashboard")}
+                onClick={handleLogin}
                 rounded={"full"}>
                     Connexion
                 </Button>
@@ -112,7 +118,7 @@ export default function Login() {
                 color={"white"}
                 width={"full"}
                 backgroundColor={"#ec7402"}
-                onClick={() => handleLogin("/register")}
+                onClick={() => handdleRedirection("/register")}
                 rounded={"full"}>
                     M'inscrire
                 </Button>

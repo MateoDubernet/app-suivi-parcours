@@ -5,7 +5,7 @@ const userRouter = express.Router()
 
 userRouter.get('/users', auth, getAllUser)
 userRouter.get('/:Email', getUserByEmail)
-userRouter.post('/', addUser)
+userRouter.post('/register', addUser)
 userRouter.post('/connect', connectUser)
 userRouter.put('/update', auth, updateUser)
 userRouter.delete('/delete', auth, deleteUser)
