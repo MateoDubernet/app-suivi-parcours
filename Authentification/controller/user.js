@@ -70,7 +70,7 @@ async function connectUser(req, res) {
         res.status(403).json({ mess: "Utilisateur ou mot de passe incorrect." })
         return
     }
-    var token = jwt.sign({ ...user }, 'ma cle');
+    var token = jwt.sign({ ...user }, 'ma clé');
     res.json({ token })
 }
 

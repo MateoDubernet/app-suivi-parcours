@@ -7,6 +7,7 @@ const { port } = require('./config');
 const cors = require('cors')
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
+const jwt = require('jsonwebtoken');
 
 const connection = mysql.createConnection({
     host: process.env.DB_HOST || 'localhost',
@@ -52,18 +53,27 @@ app.get('/user', (request, response) => {
 })
 
 app.post('/user/connexion', (request, response) => {
+  if (!request.body.email || !request.body.password) {
+    response.status(400).json({ mess: "Champs obligatoires : Email et Password." })
+    return
+  }
+
   return new Promise((result, reject) => {
     connection.query(`SELECT * FROM utilisateurs WHERE email = '${request.body.email}'`, (error, data) => {
       if (error){ 
         response.json(error);
         reject(error) 
       } else { 
-        if (data.length > 0 && data[1].password === request.body.password) {
-          response.json(data);
-          result(data) 
-        } else {
+        const user = data[0];
 
+        if (!user || user.password != request.body.password) {
+          response.status(403).json({ mess: "Utilisateur ou mot de passe incorrect." })
+          return
         }
+
+        var token = jwt.sign({ ...user }, 'ma clé');
+        response.json({ token })
+        result(data) 
       } 
     })
   })
