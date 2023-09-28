@@ -36,8 +36,6 @@ connection.query("CREATE TABLE IF NOT EXISTS utilisateurs ("
   + "PRIMARY KEY (`id`) USING BTREE)"
 );
 
-// connection.end();
-
 (async () => {
     await sequelize?.sync({ force: false });
 });
@@ -89,14 +87,27 @@ app.post('/user/register', (request, response) => {
     '${request.body.phoneNumber}',
     '${request.body.address}')`
 
-    connection.query(queryRequest, (error, data) => {
-        if (error){ 
-            response.json(error);
-            reject(error) 
-        } else { 
-            response.json(request.body);
-            result(data) 
-        } 
+    connection.query(`SELECT * FROM utilisateurs WHERE email = '${request.body.email}'`, (error, data) => {
+      if (error){ 
+        response.json(error);
+        reject(error) 
+      } else { 
+        const user = data[0];
+        if (user) {
+          response.status(403).json({ mess: `Un compte avec l'email: ${request.body.email} existe déja` })
+          return
+        } else {
+          connection.query(queryRequest, (error, data) => {
+            if (error){ 
+              response.json(error);
+              reject(error) 
+            } else { 
+              response.json(request.body);
+              result(data) 
+            } 
+          })
+        }
+      } 
     })
   })
 })
