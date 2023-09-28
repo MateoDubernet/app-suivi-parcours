@@ -14,11 +14,9 @@ export default function Login() {
 
   const handlePassword = (password: string) => {
     setPassword(password);
-    console.log("Mot de passe :", password);
   };
   const handleEmail = (email: string) => {
     setEmail(email);
-    console.log("Email :", email);
   };
 
   const handdleRedirection = (route: string) => {

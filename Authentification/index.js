@@ -26,10 +26,10 @@ connection.query('CREATE DATABASE IF NOT EXISTS Bike_Travel_User', function(err,
 connection.query('USE Bike_Travel_User')
 
 connection.query("CREATE TABLE IF NOT EXISTS users ("
-  + "`id` BIGINT(20) NOT NULL AUTO_INCREMENT,"
+  + "`id` BIGINT(20) NOT NULL AUTO_INCREMENT UNIQUE,"
   + "`nom` VARCHAR(100) NOT NULL,"
   + "`prenom` VARCHAR(100) NOT NULL,"
-  + "`email` VARCHAR(100) NOT NULL,"
+  + "`email` VARCHAR(100) NOT NULL UNIQUE,"
   + "`password` VARCHAR(100) NOT NULL,"
   + "`phone_number` VARCHAR(20) NOT NULL,"
   + "`address` VARCHAR(200) NOT NULL,"
@@ -46,13 +46,26 @@ app.use('/api/user', userRouter)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/user/:id', (request, response) => {
+app.get('/user', (request, response) => {
     res.json({ mess: `GET request` })
 })
 
 app.post('/user/connexion', (request, response) => {
-  res.json({ mess: `Login user request` })
-  console.log(req.body);
+  return new Promise((result, reject) => {
+    connection.query(`SELECT * FROM users WHERE email = '${request.body.email}'`, (error, data) => {
+      if (error){ 
+        response.json(error);
+        reject(error) 
+      } else { 
+        if (data.length > 0 && data[1].password === request.body.password) {
+          response.json(data);
+          result(data) 
+        } else {
+
+        }
+      } 
+    })
+  })
 })
 
 app.post('/user/register', (request, response) => {
