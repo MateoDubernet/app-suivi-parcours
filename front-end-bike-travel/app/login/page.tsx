@@ -21,22 +21,27 @@ export default function Login() {
     console.log("Email :", email);
   };
 
-  const handleLogin = (route: string) => {
-    fetch(`${userApiUrl}/connexion`, {
-      method: "POST",
-      body: JSON.stringify({'email': email, 'password': password}),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-    .then(res => res.text())
-    .then(text => {
-        console.log(text);
-    })
-    .catch(function(err) {
-      console.log("Something went wrong!", err);
-    });
-    // router.push(`${route}`);
+  const handdleRedirection = (route: string) => {
+    router.push(`${route}`);
+  };
+
+  const handleLogin = () => {
+    if (email && password) {
+      fetch(`${userApiUrl}/connexion`, {
+        method: "POST",
+        body: JSON.stringify({'email': email, 'password': password}),
+        headers: {'Content-Type': 'application/json'},
+      })
+      .then(res => res.text())
+      .then(text => {
+          console.log(text);
+      })
+      .catch(function(err) {
+        console.log("Something went wrong!", err);
+      });
+    } else {
+      alert('Tous les champs doivent être remplis')
+    }
   };
 
   return (
@@ -101,7 +106,7 @@ export default function Login() {
                 color={"white"}
                 width={"full"}
                 backgroundColor={"#ec7402"}
-                onClick={() => handleLogin("/dashboard")}
+                onClick={handleLogin}
                 rounded={"full"}>
                     Connexion
                 </Button>
@@ -112,7 +117,7 @@ export default function Login() {
                 color={"white"}
                 width={"full"}
                 backgroundColor={"#ec7402"}
-                onClick={() => handleLogin("/register")}
+                onClick={() => handdleRedirection("/register")}
                 rounded={"full"}>
                     M'inscrire
                 </Button>

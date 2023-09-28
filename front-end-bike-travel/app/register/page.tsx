@@ -4,15 +4,16 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function Register() {
+  const userApiUrl = 'http://localhost:4000/user'
   const router = useRouter();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const [fristname, setFirstname] = useState("");
+  const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
-  const [Password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [adress, setAdress] = useState("");
+  const [address, setAdress] = useState("");
 
   const handleFirstname = (firstname: string) => {
     setFirstname(firstname);
@@ -30,16 +31,45 @@ function Register() {
     setEmail(email);
   };
 
-  const handlePhone = (phone: string) => {
-    setPhoneNumber(phone.toString());
+  const handlePhone = (phoneNumber: string) => {
+    setPhoneNumber(phoneNumber.toString());
   };
 
-  const handleAdress = (adress: string) => {
-    setAdress(adress);
+  const handleAdress = (address: string) => {
+    setAdress(address);
   };
 
   const handdleRedirection = (route: string) => {
     router.push(`${route}`);
+  };
+
+  const handdleRegister = () => {
+    if (firstname && lastname && password && email && phoneNumber && address) {
+      const fetchData = {
+        'firstname': firstname,
+        'lastname': lastname,
+        'password': password,
+        'email': email, 
+        'phone': phoneNumber,
+        'address': address
+      }
+  
+      fetch(`${userApiUrl}/register`, {
+        method: "POST",
+        body: JSON.stringify(fetchData),
+        headers: {'Content-Type': 'application/json'},
+      })
+      .then(res => res.text())
+      .then(text => {
+          console.log(text);
+          // router.push(`/login`);
+      })
+      .catch(function(err) {
+        console.log("Something went wrong!", err);
+      });
+    } else {
+      alert('Tous les champs doivent être remplis')
+    }
   };
 
   return (
@@ -129,7 +159,9 @@ function Register() {
             <Input
             required
             rounded={"none"}
-            type="number"
+            type="tel"
+            placeholder="ex: 01.02.03.04.05"
+            pattern="[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{2}"
             border={"none"}
             variant={"unstyled"}
             borderBottom={"2px"}
@@ -157,7 +189,7 @@ function Register() {
           color={"white"}
           width={"full"}
           backgroundColor={"#ec7402"}
-          onClick={() => handdleRedirection("/dashboard")}
+          onClick={handdleRegister}
           rounded={"full"}>
             Valider
           </Button>

@@ -51,19 +51,22 @@ app.get('/user/:id', (req, res) => {
 })
 
 app.post('/user/connexion', (req, res) => {
-  res.json({ mess: `POST User email: ${req.body.email}, password: ${req.body.password}` })
+  res.json({ mess: `Login user request` })
+  console.log(req.body);
 })
 
-app.put('/user/:id', (req, res) => {
-  res.json({ mess: "PUT request" })
+app.post('/user/register', (req, res) => {
+  res.json({ mess: `Register user request` })
+  console.log(req.body);
 })
 
-app.delete('/user/:id', (req, res) => {
-  res.json({ mess: "DELETE request" })
+app.put('/user/update', (req, res) => {
+  res.json({ mess: `Update user request` })
+  console.log(req.body);
 })
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`App listening on port ${port}`)
 })
 
 module.exports = app;
