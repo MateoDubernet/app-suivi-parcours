@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import '../../app/page.module.css';
 import style from '../../app/page.module.css';
 import L from 'leaflet';
+import { Button } from '@chakra-ui/react';
 
 function Maps() {
   const [stationData, setStationData] = useState<any[]>([]);
@@ -18,7 +19,6 @@ function Maps() {
       fetch(url)
         .then((response) => response.json())
         .then((json) => {
-          console.log(json.results);
           setStationData(json.results);
         })
         .catch((error) => {
@@ -47,7 +47,43 @@ function Maps() {
     }
   };
 
+  const AddItineraire = () => {
+  if (itinerary.length === 2) {
+    const [point1, point2] = itinerary;
+
+    const requestBody = {
+      longitudePoint1: point1.lon,
+      latitudePoint1: point1.lat,
+      longitudePoint2: point2.lon,
+      latitudePoint2: point2.lat,
+    };
+
+    fetch('http://localhost:3000/itineraire/creer', { // Assurez-vous que l'URL est correcte
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          console.log('Itinéraire enregistré avec succès.');
+          // Vous pouvez également effectuer d'autres actions après l'enregistrement
+        } else {
+          console.error('Erreur lors de l\'enregistrement de l\'itinéraire.');
+        }
+      })
+      .catch((error) => {
+        console.error('Erreur lors de l\'enregistrement de l\'itinéraire :', error);
+      });
+  } else {
+    console.error('L\'itinéraire doit comporter deux points.');
+  }
+};
+
+
   return (
+    <>
     <MapContainer
       className={style.map}
       center={[48.866667, 2.333333]}
@@ -92,6 +128,10 @@ function Maps() {
         />
       )}
     </MapContainer>
+    <Button onClick={AddItineraire}>
+        Enregistrer itineraire
+      </Button>
+      </>
   );
 }
 
