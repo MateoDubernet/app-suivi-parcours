@@ -1,12 +1,11 @@
 require('dotenv').config();
 const express = require('express');
-const { sequelize } = require('./data/index');
 const userRouter = require('./router/user');
 const app = express();
 const { port } = require('./config');
 const cors = require('cors')
-const mysql = require('mysql2');
 const bodyParser = require('body-parser');
+<<<<<<< HEAD
 
 const connection = mysql.createConnection({
   host: process.env.DB_HOST || 'localhost',
@@ -35,6 +34,9 @@ connection.query("CREATE TABLE IF NOT EXISTS users ("
   + "`address` VARCHAR(200) NOT NULL,"
   + "PRIMARY KEY (`id`) USING BTREE)"
 );
+=======
+const { sequelize } = require('./data/index'); 
+>>>>>>> cheikhoul_auth
 
 (async () => {
     await sequelize?.sync({ force: false });
@@ -46,6 +48,7 @@ app.use('/api/user', userRouter)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+<<<<<<< HEAD
 app.get('/user', (request, response) => {
     res.json({ mess: `GET request` })
 })
@@ -97,6 +100,10 @@ app.put('/user/update', (request, response) => {
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
+=======
+app.listen(4000, () => {
+    console.log(`Example app listening on port ${port}`)
+>>>>>>> cheikhoul_auth
 })
 
 module.exports = app;
