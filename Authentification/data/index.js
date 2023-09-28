@@ -16,7 +16,20 @@ connection.query('CREATE DATABASE IF NOT EXISTS bike_travel_user', function(err,
     }
 });
 
-connection.end();
+connection.query('USE bike_travel_user')
+
+connection.query("CREATE TABLE IF NOT EXISTS utilisateurs ("
+  + "`id` BIGINT(20) NOT NULL AUTO_INCREMENT UNIQUE,"
+  + "`nom` VARCHAR(100) NOT NULL,"
+  + "`prenom` VARCHAR(100) NOT NULL,"
+  + "`email` VARCHAR(100) NOT NULL UNIQUE,"
+  + "`password` VARCHAR(100) NOT NULL,"
+  + "`phone_number` VARCHAR(20) NOT NULL,"
+  + "`address` VARCHAR(200) NOT NULL,"
+  + "PRIMARY KEY (`id`) USING BTREE)"
+);
+
+// connection.end();
 
 setTimeout(() => {
     const sequelize = new Sequelize('bike_travel_user', process.env.DB_USER, process.env.DB_PASSWORD, {
