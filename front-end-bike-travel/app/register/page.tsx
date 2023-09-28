@@ -50,7 +50,7 @@ function Register() {
         'lastname': lastname,
         'password': password,
         'email': email, 
-        'phone': phoneNumber,
+        'phoneNumber': phoneNumber,
         'address': address
       }
   
@@ -62,7 +62,7 @@ function Register() {
       .then(res => res.text())
       .then(text => {
           console.log(text);
-          // router.push(`/login`);
+          handdleRedirection('/login')
       })
       .catch(function(err) {
         console.log("Something went wrong!", err);
@@ -159,9 +159,8 @@ function Register() {
             <Input
             required
             rounded={"none"}
-            type="tel"
-            placeholder="ex: 01.02.03.04.05"
-            pattern="[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{2}.[0-9]{2}"
+            type="number"
+            maxLength={10}
             border={"none"}
             variant={"unstyled"}
             borderBottom={"2px"}

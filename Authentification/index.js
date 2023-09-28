@@ -31,10 +31,10 @@ connection.query("CREATE TABLE IF NOT EXISTS users ("
   + "`prenom` VARCHAR(100) NOT NULL,"
   + "`email` VARCHAR(100) NOT NULL,"
   + "`password` VARCHAR(100) NOT NULL,"
+  + "`phone_number` VARCHAR(20) NOT NULL,"
+  + "`address` VARCHAR(200) NOT NULL,"
   + "PRIMARY KEY (`id`) USING BTREE)"
-)
-
-connection.end();
+);
 
 (async () => {
     await sequelize?.sync({ force: false });
@@ -46,23 +46,40 @@ app.use('/api/user', userRouter)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/user/:id', (req, res) => {
+app.get('/user/:id', (request, response) => {
     res.json({ mess: `GET request` })
 })
 
-app.post('/user/connexion', (req, res) => {
+app.post('/user/connexion', (request, response) => {
   res.json({ mess: `Login user request` })
   console.log(req.body);
 })
 
-app.post('/user/register', (req, res) => {
-  res.json({ mess: `Register user request` })
-  console.log(req.body);
+app.post('/user/register', (request, response) => {
+
+  return new Promise((result, reject) => {
+    let queryRequest = `INSERT INTO users (nom, prenom, email, password, phone_number, address) VALUES (
+    '${request.body.firstname}', 
+    '${request.body.lastname}', 
+    '${request.body.email}', 
+    '${request.body.password}',
+    '${request.body.phoneNumber}',
+    '${request.body.address}')`
+
+    connection.query(queryRequest, (error, data) => {
+        if (error){ 
+            response.json(error);
+            reject(error) 
+        } else { 
+            response.json(data);
+            result(data) 
+        } 
+    })
+  })
 })
 
-app.put('/user/update', (req, res) => {
-  res.json({ mess: `Update user request` })
-  console.log(req.body);
+app.put('/user/update', (request, response) => {
+
 })
 
 app.listen(port, () => {
