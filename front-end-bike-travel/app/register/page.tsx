@@ -61,8 +61,11 @@ function Register() {
       })
       .then(res => res.text())
       .then(text => {
-          console.log(text);
-          // handdleRedirection('/login')
+        if (text === JSON.stringify(fetchData)) {
+          handdleRedirection('/login')
+        } else {
+          alert('Un problème à été rencontrée')
+        }
       })
       .catch(function(err) {
         console.log("Something went wrong!", err);

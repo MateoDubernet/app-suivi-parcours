@@ -70,7 +70,6 @@ app.post('/user/connexion', (request, response) => {
 })
 
 app.post('/user/register', (request, response) => {
-  console.log(request.body);
   return new Promise((result, reject) => {
     let queryRequest = `INSERT INTO utilisateurs (nom, prenom, email, password, phone_number, address) VALUES (
     '${request.body.firstname}', 
@@ -85,7 +84,7 @@ app.post('/user/register', (request, response) => {
             response.json(error);
             reject(error) 
         } else { 
-            response.json(data);
+            response.json(request.body);
             result(data) 
         } 
     })
