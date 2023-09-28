@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function Register() {
-  const userApiUrl = 'http://localhost:4000/api/user'
+  const userApiUrl = 'http://localhost:4000/user'
   const router = useRouter();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
@@ -62,7 +62,7 @@ function Register() {
       .then(res => res.text())
       .then(text => {
           console.log(text);
-          handdleRedirection('/login')
+          // handdleRedirection('/login')
       })
       .catch(function(err) {
         console.log("Something went wrong!", err);
