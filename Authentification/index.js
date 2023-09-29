@@ -161,17 +161,36 @@ app.put("/user/update/:id", (request, response) => {
     email = '${request.body.email}', 
     password = '${request.body.password}', 
     phone_number = '${request.body.phoneNumber}', 
-    address = '${request.body.address}' WHERE utilisateurs.id = '${request.body.id}'`;
+    address = '${request.body.address}' WHERE utilisateurs.id = '${request.params.id}'`;
 
-    connection.query(queryRequest, (error, data) => {
-      if (error) {
-        response.json(error);
-        reject(error);
-      } else {
-        response.json(request.body);
-        result(data);
+    connection.query(`SELECT * FROM utilisateurs WHERE email = '${request.body.email}'`,
+      (error, data) => {
+        if (error) {
+          response.json(error);
+          reject(error);
+        } else {
+          const user = data[0];
+          if (user.email === request.body.email) {
+            response
+              .status(403)
+              .json({
+                mess: `Un compte avec l'email: ${request.body.email} existe déja`,
+              });
+            return;
+          } else {
+            connection.query(queryRequest, (error, data) => {
+              if (error) {
+                response.json(error);
+                reject(error);
+              } else {
+                response.json(request.body);
+                result(data);
+              }
+            });
+          }
+        }
       }
-    });
+    );
   });
 });
 
