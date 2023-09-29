@@ -49,7 +49,9 @@ router.post("/login", async (req, res) => {
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(userData), // Inclure les données de l'utilisateur dans le corps de la requête
     };
+
     // Envoi de la requête à l'API d'authentification
     const response = await fetch(
       `${authApiUrl}/user/connexion`,

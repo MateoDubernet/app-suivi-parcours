@@ -2,6 +2,7 @@
 import { Box, Button, Flex, Input, InputGroup, InputRightElement, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Cookies from 'js-cookie';
 
 export default function Login() {
   const userApiUrl = 'http://localhost:3000'
@@ -23,7 +24,7 @@ export default function Login() {
     router.push(`${route}`);
   };
 
-  const handleLogin = () => {
+const handleLogin = () => {
   const requestData = {
     email: email,
     password: password,
@@ -31,7 +32,7 @@ export default function Login() {
 
   fetch(`${userApiUrl}/itineraire/login`, {
     method: "POST",
-    body: JSON.stringify(requestData), // Convertir les données en JSON une seule fois
+    body: JSON.stringify(requestData),
     headers: {
       "Content-Type": "application/json",
     },
@@ -43,14 +44,22 @@ export default function Login() {
         });
       } else {
         res.text().then((text) => {
+          // Une fois la connexion réussie, stockez les données de l'utilisateur dans un cookie
+          const userData = JSON.parse(text); // Supposons que la réponse contient les données de l'utilisateur au format JSON
+
+          // Stockez l'objet utilisateur dans un cookie nommé 'user'
+          Cookies.set('user', userData);
+
+          // Redirigez l'utilisateur vers la page de tableau de bord
           handdleRedirection('/dashboard');
         });
       }
     })
     .catch(function (err) {
-      console.log("Something went wrong!", err);
+      console.log("Une erreur s'est produite !", err);
     });
 };
+
 
 
   return (

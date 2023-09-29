@@ -54,6 +54,7 @@ app.get("/user", (request, response) => {
   res.json({ mess: `GET request` });
 });
 
+
 app.post("/user/connexion", (request, response) => {
   if (!request.body.email || !request.body.password) {
     response
@@ -97,9 +98,7 @@ app.get("/user/:email", (request, response) => {
     `SELECT * FROM utilisateurs WHERE email = '${userEmail}'`,
     (error, data) => {
       if (error) {
-        response
-          .status(500)
-          .json({ error: "Erreur lors de la récupération de l'utilisateur." });
+        response.status(500).json({ error: "Erreur lors de la récupération de l'utilisateur." });
       } else {
         if (data.length === 0) {
           response.status(404).json({ message: "Utilisateur introuvable." });
@@ -111,6 +110,7 @@ app.get("/user/:email", (request, response) => {
     }
   );
 });
+
 
 app.post("/user/register", (request, response) => {
   return new Promise((result, reject) => {
@@ -131,9 +131,11 @@ app.post("/user/register", (request, response) => {
         } else {
           const user = data[0];
           if (user) {
-            response.status(403).json({
-              mess: `Un compte avec l'email: ${request.body.email} existe déja`,
-            });
+            response
+              .status(403)
+              .json({
+                mess: `Un compte avec l'email: ${request.body.email} existe déja`,
+              });
             return;
           } else {
             connection.query(queryRequest, (error, data) => {
