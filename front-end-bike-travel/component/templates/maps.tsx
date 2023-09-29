@@ -128,10 +128,10 @@ function Maps() {
         />
       )}
     </MapContainer>
-    <Button onClick={AddItineraire}>
-        Enregistrer itineraire
-      </Button>
-      </>
+    <Button onClick={AddItineraire} ml={'5px'}>
+      Enregistrer itineraire
+    </Button>
+    </>
   );
 }
 

@@ -1,8 +1,9 @@
 'use client';
 import Map from '@/component/atoms/windows'
-import { Button } from '@chakra-ui/react'
+import { Button, Heading } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation';
 import React from 'react'
+import style from '../../app/page.module.css';
 
 export default function dashboard() {
 
@@ -13,17 +14,21 @@ export default function dashboard() {
 
   return (
     <>
-      <div>dashboard</div>
-      <Button
-            variant={"unstyled"}
-            mt={5}
-            color={"white"}
-            width={"full"}
-            backgroundColor={"#ec7402"}
-            onClick={() => handdleRedirection("/login")}
-            rounded={"full"}>
-            Déconnexion
-      </Button>
+      <nav className={style.navbar}>
+        <div className={style.title}>
+          <Heading>Dashboard</Heading>
+        </div>
+        <Button
+          className={style.disconnect}
+          variant={"unstyled"}
+          color={"white"}
+          backgroundColor={"#ec7402"}
+          onClick={() => handdleRedirection("/login")}
+          rounded={"full"}>
+          Déconnexion
+        </Button>
+      </nav>
+      
       <Map />
     </>
   )
