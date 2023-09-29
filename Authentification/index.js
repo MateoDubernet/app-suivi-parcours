@@ -54,7 +54,6 @@ app.get("/user", (request, response) => {
   res.json({ mess: `GET request` });
 });
 
-
 app.post("/user/connexion", (request, response) => {
   if (!request.body.email || !request.body.password) {
     response
@@ -98,7 +97,9 @@ app.get("/user/:email", (request, response) => {
     `SELECT * FROM utilisateurs WHERE email = '${userEmail}'`,
     (error, data) => {
       if (error) {
-        response.status(500).json({ error: "Erreur lors de la récupération de l'utilisateur." });
+        response
+          .status(500)
+          .json({ error: "Erreur lors de la récupération de l'utilisateur." });
       } else {
         if (data.length === 0) {
           response.status(404).json({ message: "Utilisateur introuvable." });
@@ -130,11 +131,9 @@ app.post("/user/register", (request, response) => {
         } else {
           const user = data[0];
           if (user) {
-            response
-              .status(403)
-              .json({
-                mess: `Un compte avec l'email: ${request.body.email} existe déja`,
-              });
+            response.status(403).json({
+              mess: `Un compte avec l'email: ${request.body.email} existe déja`,
+            });
             return;
           } else {
             connection.query(queryRequest, (error, data) => {
@@ -153,44 +152,25 @@ app.post("/user/register", (request, response) => {
   });
 });
 
-app.put("/user/update/:id", (request, response) => {
-  return new Promise((result, reject) => {
-    let queryRequest = `UPDATE utilisateurs SET 
-    nom = '${request.body.firstname}', 
-    prenom = '${request.body.lastname}', 
-    email = '${request.body.email}', 
-    password = '${request.body.password}', 
-    phone_number = '${request.body.phoneNumber}', 
-    address = '${request.body.address}' WHERE utilisateurs.id = '${request.params.id}'`;
+app.put("/user/update/:email", (request, response) => {
+  const userEmail = request.params.email;
+  const { prenom, nom, email, password, phoneNumber, address } = request.body;
 
-    connection.query(`SELECT * FROM utilisateurs WHERE email = '${request.body.email}'`,
-      (error, data) => {
-        if (error) {
-          response.json(error);
-          reject(error);
-        } else {
-          const user = data[0];
-          if (user.email === request.body.email) {
-            response
-              .status(403)
-              .json({
-                mess: `Un compte avec l'email: ${request.body.email} existe déja`,
-              });
-            return;
-          } else {
-            connection.query(queryRequest, (error, data) => {
-              if (error) {
-                response.json(error);
-                reject(error);
-              } else {
-                response.json(request.body);
-                result(data);
-              }
-            });
-          }
-        }
-      }
-    );
+  const queryRequest = `UPDATE utilisateurs SET 
+    nom = '${nom}', 
+    prenom = '${prenom}', 
+    email = '${email}', 
+    password = '${password}', 
+    phone_number = '${phoneNumber}', 
+    address = '${address}' 
+    WHERE email = '${userEmail}'`;
+  console.log(queryRequest);
+  connection.query(queryRequest, (error, data) => {
+    if (error) {
+      response.status(500).json({ error: "Erreur lors de la modification" });
+    } else {
+      response.status(200).json({ message: "Mise à jour réussie" });
+    }
   });
 });
 

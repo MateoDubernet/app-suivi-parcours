@@ -104,11 +104,11 @@ router.get("/user/:email", async (req, res) => {
   }
 });
 
-router.put("/user/update/:id", async (req, res) => {
+router.put("/user/update/:email", async (req, res) => {
   try {
     // Les données à envoyer dans la requête POST vers l'API d'authentification
     const userData = req.body;
-
+    console.log(userData);
     // Configuration de la requête
     const requestOptions = {
       method: "PUT",
@@ -119,7 +119,10 @@ router.put("/user/update/:id", async (req, res) => {
     };
 
     // Envoi de la requête à l'API d'authentification
-    const response = await fetch(`${authApiUrl}/user/update/${req.params.id}`, requestOptions);
+    const response = await fetch(
+      `${authApiUrl}/user/update/${req.params.email}`,
+      requestOptions
+    );
 
     if (!response.ok) {
       console.log(JSON.stringify(userData));
