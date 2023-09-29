@@ -5,11 +5,14 @@ import '../../app/page.module.css';
 import style from '../../app/page.module.css';
 import L from 'leaflet';
 import { Button } from '@chakra-ui/react';
+import Cookies from 'js-cookie';
 
 function Maps() {
+  const userApiUrl = 'http://localhost:3000/itineraire'
   const [stationData, setStationData] = useState<any[]>([]);
   const [waypoints, setWaypoints] = useState<any[]>([]);
   const [itinerary, setItinerary] = useState<any[]>([]);
+  const [userId, setUserId] = useState<string>('')
 
   useEffect(() => {
     const getStation = () => {
@@ -56,9 +59,11 @@ function Maps() {
       latitudePoint1: point1.lat,
       longitudePoint2: point2.lon,
       latitudePoint2: point2.lat,
+      userId: userId, // Assurez-vous que userId est défini correctement
     };
 
-    fetch('http://localhost:3000/itineraire/creer', { // Assurez-vous que l'URL est correcte
+    // Effectuer la requête POST
+    fetch(`${userApiUrl}/creer`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -67,19 +72,48 @@ function Maps() {
     })
       .then((response) => {
         if (response.status === 201) {
-          console.log('Itinéraire enregistré avec succès.');
-          // Vous pouvez également effectuer d'autres actions après l'enregistrement
+          console.log('Itinéraire créé avec succès.');
+          // Vous pouvez également effectuer d'autres actions après la création de l'itinéraire
         } else {
-          console.error('Erreur lors de l\'enregistrement de l\'itinéraire.');
+          console.error('Erreur lors de la création de l\'itinéraire.');
         }
       })
       .catch((error) => {
-        console.error('Erreur lors de l\'enregistrement de l\'itinéraire :', error);
+        console.error('Erreur lors de la création de l\'itinéraire :', error);
       });
-  } else {
-    console.error('L\'itinéraire doit comporter deux points.');
   }
 };
+
+
+
+   useEffect(() => {
+    const email = Cookies.get('user'); // Supprimez le JSON.stringify ici
+
+    if (email) {
+      fetch(`${userApiUrl}/user/${email}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            // La requête a réussi, vous pouvez maintenant traiter les données de l'utilisateur
+            response.json().then((userData) => {
+              console.log('Données de l\'utilisateur récupérées avec succès :', userData);
+              setUserId(userData.id)
+              // Vous pouvez effectuer d'autres actions avec les données de l'utilisateur ici
+            });
+          } else {
+            console.error('Erreur lors de la récupération des données de l\'utilisateur.');
+          }
+        })
+        .catch((error) => {
+          console.error('Erreur lors de la récupération des données de l\'utilisateur :', error);
+        });
+    }
+  }, []);
+
 
 
   return (

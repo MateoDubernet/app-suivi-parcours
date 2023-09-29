@@ -43,12 +43,10 @@ const handleLogin = () => {
           alert(`Erreur ${res.status}: ${text}`);
         });
       } else {
-        res.text().then((text) => {
-          // Une fois la connexion réussie, stockez les données de l'utilisateur dans un cookie
-          const userData = JSON.parse(text); // Supposons que la réponse contient les données de l'utilisateur au format JSON
+        res.text().then((text) => { // Supposons que la réponse contient les données de l'utilisateur au format JSON
 
           // Stockez l'objet utilisateur dans un cookie nommé 'user'
-          Cookies.set('user', userData);
+          Cookies.set('user', requestData.email);
 
           // Redirigez l'utilisateur vers la page de tableau de bord
           handdleRedirection('/dashboard');

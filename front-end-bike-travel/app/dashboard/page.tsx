@@ -2,14 +2,19 @@
 import Map from '@/component/atoms/windows'
 import { Button } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { protectRoute } from '@/component/atoms/protectRoute';
+import Cookies from 'js-cookie';
 
-export default function dashboard() {
+export default protectRoute(function Dashboard() {
 
   const router = useRouter();
   const handdleRedirection = (route: string) => {
+    Cookies.remove('user')
     router.push(`${route}`);
   };
+
+  const [user , setUser] = useState(0)
 
   return (
     <>
@@ -27,4 +32,4 @@ export default function dashboard() {
       <Map />
     </>
   )
-}
+})
