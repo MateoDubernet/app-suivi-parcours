@@ -50,7 +50,6 @@ router.post("/login", async (req, res) => {
         "Content-Type": "application/json",
       },
     };
-    console.log(userData);
     // Envoi de la requête à l'API d'authentification
     const response = await fetch(
       `${authApiUrl}/user/connexion`,
@@ -64,6 +63,38 @@ router.post("/login", async (req, res) => {
     const data = await response.json();
 
     // Répond à la demande de l'API de localisation avec la réponse de l'API d'authentification
+    res.status(200).json(data);
+  } catch (error) {
+    console.error("Erreur lors de la connexion :", error);
+    res.status(500).json({ error: "Erreur lors de la connexion" });
+  }
+});
+
+router.get("/user/:email", async (req, res) => {
+  try {
+    const userEmail = req.params.email;
+
+    // Configuration de la requête
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    // Envoi de la requête à l'API d'authentification avec l'e-mail en tant que paramètre
+    const response = await fetch(
+      `${authApiUrl}/user/${userEmail}`, // Notez l'utilisation de ${userEmail} pour insérer la valeur dynamique de l'e-mail
+      requestOptions
+    );
+
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP : ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // Répond à la demande de l'API avec la réponse de l'API d'authentification
     res.status(200).json(data);
   } catch (error) {
     console.error("Erreur lors de la connexion :", error);

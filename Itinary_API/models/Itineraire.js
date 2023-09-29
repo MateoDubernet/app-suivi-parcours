@@ -18,6 +18,10 @@ const Itineraire = sequelize.define("Itineraire", {
     type: Sequelize.FLOAT,
     allowNull: false,
   },
+  userId: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
 });
 
 module.exports = Itineraire;

@@ -5,13 +5,14 @@ const Itineraire = require('../models/Itineraire');
 // Créer un nouvel itinéraire
 router.post('/creer', async (req, res) => {
   try {
-    const { longitudePoint1, latitudePoint1, longitudePoint2, latitudePoint2 } =
+    const { longitudePoint1, latitudePoint1, longitudePoint2, latitudePoint2 ,userId} =
       req.body;
     const itineraire = await Itineraire.create({
       longitudePoint1,
       latitudePoint1,
       longitudePoint2,
       latitudePoint2,
+      userId,
     });
     res.status(201).json(itineraire);
   } catch (error) {

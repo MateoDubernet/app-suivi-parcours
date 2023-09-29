@@ -88,6 +88,30 @@ app.post("/user/connexion", (request, response) => {
   });
 });
 
+// Route pour récupérer un utilisateur par e-mail
+app.get("/user/:email", (request, response) => {
+  const userEmail = request.params.email;
+
+  // Votre code pour interagir avec la base de données
+  connection.query(
+    `SELECT * FROM utilisateurs WHERE email = '${userEmail}'`,
+    (error, data) => {
+      if (error) {
+        response
+          .status(500)
+          .json({ error: "Erreur lors de la récupération de l'utilisateur." });
+      } else {
+        if (data.length === 0) {
+          response.status(404).json({ message: "Utilisateur introuvable." });
+        } else {
+          const user = data[0];
+          response.status(200).json(user);
+        }
+      }
+    }
+  );
+});
+
 app.post("/user/register", (request, response) => {
   return new Promise((result, reject) => {
     let queryRequest = `INSERT INTO utilisateurs (nom, prenom, email, password, phone_number, address) VALUES (
@@ -107,11 +131,9 @@ app.post("/user/register", (request, response) => {
         } else {
           const user = data[0];
           if (user) {
-            response
-              .status(403)
-              .json({
-                mess: `Un compte avec l'email: ${request.body.email} existe déja`,
-              });
+            response.status(403).json({
+              mess: `Un compte avec l'email: ${request.body.email} existe déja`,
+            });
             return;
           } else {
             connection.query(queryRequest, (error, data) => {
