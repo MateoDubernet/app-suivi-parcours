@@ -32,4 +32,14 @@ router.get('/tous', async (req, res) => {
   }
 });
 
+router.get('/tous/:id', async (req, res) => {
+  try {
+    const itineraires = await Itineraire.findOne({where: {Id:req.params.id}});
+    res.status(200).json(itineraires);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des itinéraires :', error);
+    res.status(500).json({ message: 'Une erreur s\'est produite.' });
+  }
+});
+
 module.exports = router;
