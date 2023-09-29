@@ -1,56 +1,58 @@
-// Importations nécessaires
-'use client'
-import { protectRoute } from '@/component/atoms/protectRoute'
-import React, { useEffect, useState } from 'react'
-import Cookies from 'js-cookie'
-import { Box, Button, Input, Text } from '@chakra-ui/react'
+"use client";
+import { Button } from '@chakra-ui/react'
+import React from 'react'
 
-// Composant de la page de profil
-const Profile = () => {
-  const userApiUrl = 'http://localhost:3000/itineraire';
-  const [user, setUser] = useState<{
-    id: string,
-    email: string,
-    prenom: string,
-    nom: string,
-    password: string,
-    address: string,
-    phone_number: string
-  } | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
+function Profile() {
+  const userApiUrl = 'http://localhost:3000'
 
-  const toggleEditing = () => {
-    setIsEditing(!isEditing);
-  };
-
-  useEffect(() => {
-    const email = Cookies.get('user');
-
-    if (email) {
-      fetch(`${userApiUrl}/user/${email}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) {
-            // La requête a réussi, vous pouvez maintenant traiter les données de l'utilisateur
-            response.json().then((userData) => {
-              setUser(userData);
-              // Vous pouvez effectuer d'autres actions avec les données de l'utilisateur ici
-            });
-          } else {
-            console.error('Erreur lors de la récupération des données de l\'utilisateur.');
-          }
-        })
-        .catch((error) => {
-          console.error('Erreur lors de la récupération des données de l\'utilisateur :', error);
-        });
-    }
-  }, []);
+  // const handleModif = () => {
+  //   const requestData = {
+  //     firstname: 'test2',
+  //     lastname: 'test2',
+  //     password: 'test2',
+  //     email: 'test4@test4', 
+  //     phoneNumber: '0309569547',
+  //     address: '2 rue des test2',
+  //   }
+  
+  //   fetch(`${userApiUrl}/itineraire/user/update/8`, {
+  //     method: "PUT",
+  //     body: JSON.stringify(requestData),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //   .then((res) => {
+  //     if (res.status !== 200) {
+  //       res.text().then((text) => {
+  //         alert(`Erreur ${res.status}: ${text}`);
+  //       });
+  //     }
+  //   })
+  //   .catch(function (err) {
+  //     console.log("Une erreur s'est produite !", err);
+  //   });
+  // };
 
   return (
+    <>
+      <div>Profile</div>
+
+      {/* <Button
+      variant={"unstyled"}
+      mt={5}
+      color={"white"}
+      width={"full"}
+      backgroundColor={"#ec7402"}
+      onClick={handleModif}
+      rounded={"full"}>
+          Modifier
+      </Button> */}
+    </>
+  )
+}
+
+export default Profile
     <Box h={"100vh"}>
       <Text fontSize="2xl">Profil de l'utilisateur</Text>
       {user ? (
@@ -80,7 +82,17 @@ const Profile = () => {
       ) : (
         <Text>Chargement en cours...</Text>
       )}
-    </Box>
+    </Box >
+      {/* <Button
+      variant={"unstyled"}
+      mt={5}
+      color={"white"}
+      width={"full"}
+      backgroundColor={"#ec7402"}
+      onClick={handleModif}
+      rounded={"full"}>
+          Modifier
+      </Button> */}
   );
 };
 
