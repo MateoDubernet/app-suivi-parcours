@@ -34,6 +34,9 @@ const Profile = () => {
 
   const toggleEditing = () => {
     setIsEditing(!isEditing);
+    if (isEditing === true) {
+      handleModif()
+    }
   };
 
   const handleFirstname = (firstname: string) => {
@@ -125,6 +128,7 @@ const handleModif = () => {
         
         Cookies.remove('user');
         Cookies.set('user', encodedEmail);
+
         router.push('/dashboard');
       } else {
         res.text().then((text) => {
@@ -165,7 +169,7 @@ useEffect(() => {
         });
     }
   }, [user]);
-console.log(data)
+
   return (
     <Box h="100vh">
       <Text fontSize="2xl">Profil de l'utilisateur</Text>
@@ -228,17 +232,6 @@ console.log(data)
       ) : (
         <Text>Chargement en cours...</Text>
       )}
-      <Button
-        variant="unstyled"
-        mt={5}
-        color="white"
-        width="full"
-        backgroundColor="#ec7402"
-        onClick={handleModif}
-        rounded="full"
-      >
-        Modifier
-          </Button>
     {data ? (
   <Box>
     {data.map((item, index) => (
