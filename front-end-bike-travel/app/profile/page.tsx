@@ -118,7 +118,11 @@ const handleModif = () => {
     .then((res) => {
       if (res.status === 200) {
         // La requête a réussi
-        const encodedEmail = encodeURIComponent(requestData.email);
+        let encodedEmail = ''
+        if (requestData.email) {
+          encodedEmail = encodeURIComponent(requestData.email);
+        }
+        
         Cookies.remove('user');
         Cookies.set('user', encodedEmail);
         router.push('/dashboard');
