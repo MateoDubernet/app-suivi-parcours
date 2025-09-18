@@ -51,42 +51,40 @@ function Maps() {
   };
 
   const AddItineraire = () => {
-  if (itinerary.length === 2) {
-    const [point1, point2] = itinerary;
+    if (itinerary.length === 2) {
+      const [point1, point2] = itinerary;
 
-    const requestBody = {
-      longitudePoint1: point1.lon,
-      latitudePoint1: point1.lat,
-      longitudePoint2: point2.lon,
-      latitudePoint2: point2.lat,
-      userId: userId, // Assurez-vous que userId est défini correctement
-    };
+      const requestBody = {
+        longitudePoint1: point1.lon,
+        latitudePoint1: point1.lat,
+        longitudePoint2: point2.lon,
+        latitudePoint2: point2.lat,
+        userId: userId, // Assurez-vous que userId est défini correctement
+      };
 
-    // Effectuer la requête POST
-    fetch(`${userApiUrl}/creer`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then((response) => {
-        if (response.status === 201) {
-          console.log('Itinéraire créé avec succès.');
-          // Vous pouvez également effectuer d'autres actions après la création de l'itinéraire
-        } else {
-          console.error('Erreur lors de la création de l\'itinéraire.');
-        }
+      // Effectuer la requête POST
+      fetch(`${userApiUrl}/creer`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
       })
-      .catch((error) => {
-        console.error('Erreur lors de la création de l\'itinéraire :', error);
-      });
-  }
-};
+        .then((response) => {
+          if (response.status === 201) {
+            console.log('Itinéraire créé avec succès.');
+            // Vous pouvez également effectuer d'autres actions après la création de l'itinéraire
+          } else {
+            console.error('Erreur lors de la création de l\'itinéraire.');
+          }
+        })
+        .catch((error) => {
+          console.error('Erreur lors de la création de l\'itinéraire :', error);
+        });
+    }
+  };
 
-
-
-   useEffect(() => {
+  useEffect(() => {
     const email = Cookies.get('user'); // Supprimez le JSON.stringify ici
 
     if (email) {
@@ -114,57 +112,57 @@ function Maps() {
     }
   }, []);
 
-
-
   return (
     <>
-    <MapContainer
-      className={style.map}
-      center={[48.866667, 2.333333]}
-      zoom={10}
-      scrollWheelZoom={true}
-      tap={true}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-
-      {stationData && stationData.length > 0 &&
-        stationData.map((station) => (
-          <Marker
-            icon={L.divIcon({
-              iconSize: [20, 20],
-              iconAnchor: [20 / 2, 20 + 9],
-              className: "mymarker",
-              html: "🚲",
-            })}
-            key={station.stationcode}
-            position={[station.coordonnees_geo.lat, station.coordonnees_geo.lon]}
-          >
-            <Popup>
-              <strong>{station.name}</strong>
-              <br />
-              Capacité : {station.capacity}
-              <br />
-              Vélos disponibles : {station.numbikesavailable}
-            </Popup>
-          </Marker>
-        ))}
-
-      <ClickHandler addWaypoint={addWaypoint} />
-
-      {/* Render the Polyline for the itinerary */}
-      {itinerary.length === 2 && (
-        <Polyline
-          positions={itinerary.map((point) => [point.lat, point.lon])}
-          color="blue"
+      <MapContainer
+        className={style.map}
+        center={[48.866667, 2.333333]}
+        zoom={10}
+        scrollWheelZoom={true}
+        tap={true}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-      )}
-    </MapContainer>
-    <Button onClick={AddItineraire} ml={'5px'}>
-      Enregistrer itineraire
-    </Button>
+
+        {
+          stationData && stationData.length > 0 &&
+            stationData.map((station) => (
+              <Marker
+                icon = {L.divIcon({
+                  iconSize: [20, 20],
+                  iconAnchor: [20 / 2, 20 + 9],
+                  className: "mymarker",
+                  html: "🚲",
+                })}
+                key={station.stationcode}
+                position={[station.coordonnees_geo?.lat, station.coordonnees_geo.lon]}
+              >
+                <Popup>
+                  <strong>{station.name}</strong>
+                  <br/>
+                    Capacité : {station.capacity}
+                  <br/>
+                  Vélos disponibles : {station.numbikesavailable}
+                </Popup>
+              </Marker>
+            ))
+        }
+
+        <ClickHandler addWaypoint={addWaypoint} />
+
+        {/* Render the Polyline for the itinerary */}
+        {itinerary.length === 2 && (
+          <Polyline
+            positions={itinerary.map((point) => [point.lat, point.lon])}
+            color="blue"
+          />
+        )}
+      </MapContainer>
+      <Button onClick={AddItineraire} ml={'5px'}>
+        Enregistrer itineraire
+      </Button>
     </>
   );
 }

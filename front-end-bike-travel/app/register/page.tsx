@@ -114,7 +114,7 @@ function Register() {
             </Input>
           </InputGroup>
 
-          <Text color={'black'} w={"full"}>Nom</Text>
+          <Text color={'black'} w={"full"}>Prénom</Text>
           <InputGroup color={'black'}>
             <Input
             required
@@ -127,7 +127,7 @@ function Register() {
             </Input>
           </InputGroup>
 
-          <Text color={'black'} w={"full"}>Prenom</Text>
+          <Text color={'black'} w={"full"}>Nom</Text>
           <InputGroup color={'black'}>
             <Input
             required
