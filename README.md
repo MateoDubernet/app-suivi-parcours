@@ -61,6 +61,8 @@ cd Itinary_API
 npm install
 ```
 
+---
+
 ## Lancement de l’application
 
 **Important :** lancer les deux APIs avant le client pour éviter un conflit de port.
@@ -82,6 +84,8 @@ npm start
 cd front-end-bike-travel
 npm run dev
 ```
+
+---
 
 ## Configuration
 ### API Authentification
