@@ -102,3 +102,6 @@ Dans le terminal pour front-end :
 ```bash
    npm run dev
 ```
+
+## Fonctionnalités
+
