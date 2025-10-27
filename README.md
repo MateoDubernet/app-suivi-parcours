@@ -82,7 +82,7 @@ ou
 
 #### API Itinéraires
 - Créer la base de données **itinary_api** avec MySQL
-- Exécuter le fichier **itinary_api.sql** dans la base de données itinary_api.
+- Exécuter le fichier **itinary_api.sql** dans la base de données **itinary_api**
 - Fichier de configuration :
   - config/database.js
   - Y renseigner les paramètres de connexion à la base de données.
