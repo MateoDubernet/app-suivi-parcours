@@ -102,6 +102,15 @@ Dans le terminal pour front-end :
 ```bash
    npm run dev
 ```
+Aller à l'adresse indiquer dans le terminal
+
+---
 
 ## Fonctionnalités
+- Authentification avec inscription et connexion
+- Sélectionner deux lieux sur la carte pour créer un itinéraire
+- Enregistrer l'itinéraire
+- Voir sont profil et les itinéraires enregistrer
+- Modifier le profil
+- Se déconnecter
 
