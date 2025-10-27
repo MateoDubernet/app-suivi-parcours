@@ -1,5 +1,7 @@
 # app-suivi-parcours
 
+## Contexte
+Il s'agit d'un projet réaliser durant mon alternance, il à été réaliser en groupe dans le cadre d'un devoir maison.\
 Cette application permet de créer des itinéraires en sélectionnant deux points sur une carte.
 Elle intègre également un système d’authentification (inscription et connexion).
 
