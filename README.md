@@ -1,9 +1,10 @@
 # app-suivi-parcours
 
 ## Contexte
-Il s'agit d'un projet réaliser durant mon alternance, il à été réaliser en groupe dans le cadre d'un devoir maison.\
-Cette application permet de créer des itinéraires en sélectionnant deux points sur une carte.
-Elle intègre également un système d’authentification (inscription et connexion).
+
+### Description
+Il s'agit d'un projet utilisant Next.js pour le frontend et Express.js pour le backend, il a été réaliser en groupe durant mon alternance dans le cadre d'un devoir maison.\
+Le projet est une application web permettant de créer des itinéraires en sélectionnant deux points sur une carte, elle intègre également un système d’authentification (inscription et connexion).
 
 ---
 
@@ -30,76 +31,74 @@ L’application est composée de **3 parties** distinctes :
    - **Base de données à créer manuellement** : un fichier SQL est fourni pour la table `Itineraires`.
    - Paramètres de connexion à configurer via :
      - `config/database.js`
+    
+---
+
+## Prérequis
+
+- Node.js et npm installés
+- MySQL
 
 ---
 
-## Base de données
-
-### Itinéraires
-Un fichier SQL est fourni (`itineraires.sql`) afin de créer la table `Itineraires`.
-Il faut exécuter ce script manuellement dans votre SGBD avant de démarrer l’API Itinéraires.
-
----
-
-## Installation
+## Installation & Lancement
 
 ### 1. Cloner le projet
 ```bash
-git clone <url-du-repo>
-cd <dossier-projet>
+   git clone <url-du-repo>
+   cd <dossier-projet>
+```
+
+- Ouvrir trois terminals, un pour front-end-bike-travel, un pour Authentification et un autre pour Itinary_API
+- Se mettre sur les dossiers :
+```bash
+    cd front-end-bike-travel
+```
+```bash
+   cd Authentification
+```
+```bash
+   cd Itinary_API
 ```
 
 ### 2. Installer les dépendances
+
+Dans touts les terminals lancer la commande :
 ```bash
-cd front-end-bike-travel
-npm install
+   npm install
+```
+ou
+```bash
+    npm install --force
 ```
 
-```bash
-cd Authentification
-npm install
-```
+### 3. Configuration
 
-```bash
-cd Itinary_API
-npm install
-```
-
----
-
-## Lancement de l’application
-
-**Important :** lancer les deux APIs avant le client pour éviter un conflit de port.
-
-### API Authentification
-```bash
-cd Authentification
-npm start
-```
-
-### API Itinéraires
-```bash
-cd Itinary_API
-npm start
-```
-
-### Client (Next.js)
-```bash
-cd front-end-bike-travel
-npm run dev
-```
-
----
-
-## Configuration
-### API Authentification
+#### API Authentification
 - Fichiers de configuration :
   - .env
   - index.js
 - Y renseigner les paramètres de connexion à la base de données.
 
-### API Itinéraires
+#### API Itinéraires
 - Fichier de configuration :
   - config/database.js
   - Y renseigner les paramètres de connexion à la base de données.
-- Exécuter le script SQL pour créer la table Itineraires.
+- Créer la base de données **itinary_api** avec MySQL
+- Exécuter le fichier **itinary_api.sql** dans la base de données itinary_api.
+
+### 4. Lancement de l’application
+**Important :** lancer les deux APIs avant le client pour éviter un conflit de port.
+
+#### Authentification et Itinary_API
+
+Dans les terminals pour **Authentification** et **Itinary_API** lancer la commande :
+```bash
+   npm start
+```
+
+#### Front-end-bike-travel
+Dans le terminal pour front-end :
+```bash
+   npm run dev
+```
