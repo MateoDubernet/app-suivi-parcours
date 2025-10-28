@@ -49,6 +49,7 @@ L’application est composée de **3 parties** distinctes :
    cd <dossier-projet>
 ```
 
+### 2. Accéder aux différentes parties
 - Ouvrir trois terminals, un pour front-end-bike-travel, un pour Authentification et un autre pour Itinary_API
 - Se mettre sur les dossiers :
 ```bash
@@ -61,7 +62,7 @@ L’application est composée de **3 parties** distinctes :
    cd Itinary_API
 ```
 
-### 2. Installer les dépendances
+### 3. Installer les dépendances
 
 Dans touts les terminals lancer la commande :
 ```bash
@@ -72,7 +73,7 @@ ou
     npm install --force
 ```
 
-### 3. Configuration
+### 4. Configuration
 
 #### API Authentification
 - Fichiers de configuration :
@@ -87,7 +88,7 @@ ou
   - config/database.js
   - Y renseigner les paramètres de connexion à la base de données.
 
-### 4. Lancement de l’application
+### 5. Lancement de l’application
 **Important :** lancer les deux APIs avant le client pour éviter un conflit de port.
 
 #### Authentification et Itinary_API
