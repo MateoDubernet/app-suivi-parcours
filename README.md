@@ -49,7 +49,10 @@ L’application est composée de **3 parties** distinctes :
    cd <dossier-projet>
 ```
 
-### 2. Accéder aux différentes parties
+### 2. Aller sur le projet
+```bash
+   cd <dossier-projet>
+```
 - Ouvrir trois terminals, un pour front-end-bike-travel, un pour Authentification et un autre pour Itinary_API
 - Se mettre sur les dossiers :
 ```bash
