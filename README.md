@@ -45,22 +45,23 @@ L’application est composée de **3 parties** distinctes :
 
 ### 1. Cloner le projet
 ```bash
-   git clone <url-du-repo>
-   cd <dossier-projet>
+   git clone https://github.com/MateoDubernet/app-suivi-parcours.git
 ```
 
 ### 2. Aller sur le projet
-```bash
-   cd <dossier-projet>
-```
-- Ouvrir trois terminals, un pour front-end-bike-travel, un pour Authentification et un autre pour Itinary_API
-- Se mettre sur les dossiers :
+Depuis le dossier **app-suivi-parcours** ouvrir trois terminals, un pour front-end-bike-travel, un pour Authentification et un autre pour Itinary_API
+
+- Accèder à la partie **front-end-bike-travel** depuis le premier terminal :
 ```bash
     cd front-end-bike-travel
 ```
+
+Accèder à la partie **Authentification** depuis le deuxième terminal :
 ```bash
    cd Authentification
 ```
+
+Accèder à la partie **Itinary_API** depuis le troisième terminal :
 ```bash
    cd Itinary_API
 ```
