@@ -1,119 +1,46 @@
 # app-suivi-parcours
 
-## Contexte
+## Présentation
+Cette application web permet de créer et d'enregistrer des itinéraires personnalisés en sélectionnant deux points sur une carte interactive. Ce projet a été réalisé en équipe durant mon alternance dans le cadre d'un devoir maison pour démontrer la gestion d'une architecture en microservices.
 
-### Description
-Il s'agit d'un projet utilisant Next.js pour le frontend et Express.js pour le backend, il a été réaliser en groupe durant mon alternance dans le cadre d'un devoir maison.\
-Le projet est une application web permettant de créer des itinéraires en sélectionnant deux points sur une carte, elle intègre également un système d’authentification (inscription et connexion).
-
----
-
-## Architecture du projet
-
-L’application est composée de **3 parties** distinctes :
-
-1. **Frontend**
-   - Framework : [Next.js](https://nextjs.org/).
-   - Affiche la carte et permet la sélection des points.
-   - Interagit avec les deux APIs.
-
-2. **API Authentification**
-   - Framework : [Express.js](https://expressjs.com).
-   - Gère l’inscription et la connexion des utilisateurs.
-   - Base de données créée automatiquement lors du lancement.
-   - Paramètres de connexion à configurer via :
-     - `index.js`
-     - `.env`
-
-4. **API Itinéraires**
-   - Framework : [Express.js](https://expressjs.com).
-   - Gère la création et la récupération des itinéraires.
-   - **Base de données à créer manuellement** : un fichier SQL est fourni pour la table `Itineraires`.
-   - Paramètres de connexion à configurer via :
-   - `config/database.js`
----
-
-## Prérequis
-
-- Node.js et npm installés
-- MySQL
+### Architecture
+**Frontend** : Next.js (Cartographie interactive et interface utilisateur).
+**Microservice Auth** : Express.js (Gestion des sessions, inscriptions et connexions).
+**Microservice Itinéraires** : Express.js (CRUD des parcours et stockage géographique).
+**Bases de données** : 2 instances MySQL distinctes pour une isolation totale des données.
+**Infrastructure** : Docker & Docker Compose.
 
 ---
 
 ## Installation & Lancement
-
-### 1. Cloner le projet
+### 1. Clonage du dépôt
 ```bash
    git clone https://github.com/MateoDubernet/app-suivi-parcours.git
 ```
 
-### 2. Aller sur le projet
-Depuis le dossier **app-suivi-parcours** ouvrir trois terminals, un pour front-end-bike-travel, un pour Authentification et un autre pour Itinary_API
+### 2. Lancement (Docker)
+**Prérequis :** [Docker Desktop](https://www.docker.com/products/docker-desktop) installé et lancé.
 
-- Accèder à la partie **front-end-bike-travel** depuis le premier terminal :
 ```bash
-    cd front-end-bike-travel
+    cd ./app-suivi-parcours
+    docker-compose up --build
 ```
 
-Accèder à la partie **Authentification** depuis le deuxième terminal :
-```bash
-   cd Authentification
-```
+### 3. Accès
+**Application (Next.js)** : http://localhost (Port 80)
+**API Auth** : http://localhost:3001
+**API Itinéraires** : http://localhost:3002
 
-Accèder à la partie **Itinary_API** depuis le troisième terminal :
-```bash
-   cd Itinary_API
-```
-
-### 3. Installer les dépendances
-
-Dans touts les terminals lancer la commande :
-```bash
-   npm install
-```
-ou
-```bash
-    npm install --force
-```
-
-### 4. Configuration
-
-#### API Authentification
-- Fichiers de configuration :
-  - .env
-  - index.js
-- Y renseigner les paramètres de connexion à la base de données.
-
-#### API Itinéraires
-- Créer la base de données **itinary_api** avec MySQL
-- Exécuter le fichier **itinary_api.sql** dans la base de données **itinary_api**
-- Fichier de configuration :
-  - config/database.js
-  - Y renseigner les paramètres de connexion à la base de données.
-
-### 5. Lancement de l’application
-**Important :** lancer les deux APIs avant le client pour éviter un conflit de port.
-
-#### Authentification et Itinary_API
-
-Dans les terminals pour **Authentification** et **Itinary_API** lancer la commande :
-```bash
-   npm start
-```
-
-#### Front-end-bike-travel
-Dans le terminal pour front-end :
-```bash
-   npm run dev
-```
-Aller à l'adresse indiquer dans le terminal
+[!IMPORTANT]
+Assurez-vous que les ports 80, 3001 et 3002 ne sont pas déjà utilisés par une autre application sur votre machine avant de lancer le conteneur.
 
 ---
 
 ## Fonctionnalités
-- Authentification avec inscription et connexion
-- Sélectionner deux lieux sur la carte pour créer un itinéraire
-- Enregistrer l'itinéraire
-- Voir sont profil et les itinéraires enregistrer
-- Modifier le profil
-- Se déconnecter
+1. **Authentification sécurisée** : Inscription et connexion avec gestion de session.
+
+2. **Cartographie** : Sélection de lieux et tracé d'itinéraires sur carte.
+
+3. **Profil Utilisateur** : Consultation, modification du profil et historique des parcours enregistrés.
+
+4. **Microservices** : Communication fluide entre le client Next.js et les deux APIs Express.
