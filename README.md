@@ -30,8 +30,7 @@ L’application est composée de **3 parties** distinctes :
    - Gère la création et la récupération des itinéraires.
    - **Base de données à créer manuellement** : un fichier SQL est fourni pour la table `Itineraires`.
    - Paramètres de connexion à configurer via :
-     - `config/database.js`
-    
+   - `config/database.js`
 ---
 
 ## Prérequis
@@ -118,4 +117,3 @@ Aller à l'adresse indiquer dans le terminal
 - Voir sont profil et les itinéraires enregistrer
 - Modifier le profil
 - Se déconnecter
-

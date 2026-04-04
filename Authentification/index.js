@@ -10,9 +10,9 @@ const mysql = require("mysql2");
 const jwt = require("jsonwebtoken");
 
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST || "127.0.0.1",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "root",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT || 3306,
 });
 
@@ -45,7 +45,7 @@ async () => {
 };
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use("/api/user", userRouter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -88,11 +88,9 @@ app.post("/user/connexion", (request, response) => {
   });
 });
 
-// Route pour récupérer un utilisateur par e-mail
 app.get("/user/:email", (request, response) => {
   const userEmail = request.params.email;
 
-  // Votre code pour interagir avec la base de données
   connection.query(
     `SELECT * FROM utilisateurs WHERE email = '${userEmail}'`,
     (error, data) => {
@@ -115,9 +113,9 @@ app.get("/user/:email", (request, response) => {
 app.post("/user/register", (request, response) => {
   return new Promise((result, reject) => {
     let queryRequest = `INSERT INTO utilisateurs (nom, prenom, email, password, phone_number, address) VALUES (
-    '${request.body.firstname}', 
-    '${request.body.lastname}', 
-    '${request.body.email}', 
+    '${request.body.firstname}',
+    '${request.body.lastname}',
+    '${request.body.email}',
     '${request.body.password}',
     '${request.body.phoneNumber}',
     '${request.body.address}')`;
@@ -156,13 +154,13 @@ app.put("/user/update/:email", (request, response) => {
   const userEmail = request.params.email;
   const { prenom, nom, email, password, phoneNumber, address } = request.body;
 
-  const queryRequest = `UPDATE utilisateurs SET 
-    nom = '${nom}', 
-    prenom = '${prenom}', 
-    email = '${email}', 
-    password = '${password}', 
-    phone_number = '${phoneNumber}', 
-    address = '${address}' 
+  const queryRequest = `UPDATE utilisateurs SET
+    nom = '${nom}',
+    prenom = '${prenom}',
+    email = '${email}',
+    password = '${password}',
+    phone_number = '${phoneNumber}',
+    address = '${address}'
     WHERE email = '${userEmail}'`;
   console.log(queryRequest);
   connection.query(queryRequest, (error, data) => {

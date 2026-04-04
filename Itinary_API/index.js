@@ -16,7 +16,7 @@ app.use("/itineraire", itinerairesRoutes);
 app.use("/itineraire", userRoute);
 
 // Démarrer le serveur
-const PORT = process.env.PORT || 3000;
+const PORT = 3002;
 sequelize.sync().then(() => {
   app.listen(PORT, () => {
     console.log(`Serveur en cours d'exécution sur le port ${PORT}`);

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function Register() {
-  const userApiUrl = 'http://localhost:3000'
+  const userApiUrl = 'http://localhost:3002'
   const router = useRouter();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
@@ -49,11 +49,11 @@ function Register() {
         'firstname': firstname,
         'lastname': lastname,
         'password': password,
-        'email': email, 
+        'email': email,
         'phoneNumber': phoneNumber,
         'address': address
       }
-  
+
       fetch(`${userApiUrl}/itineraire/register`, {
         method: "POST",
         body: JSON.stringify(fetchData),
@@ -64,11 +64,11 @@ function Register() {
           res.text().then(text => {
             alert(`Erreur ${res.status}: ${text}`)
           })
-       } else {
-        res.text().then(text => {
-          handdleRedirection('/login')
-        })
-       }
+        } else {
+          res.text().then(text => {
+            handdleRedirection('/login')
+          })
+        }
       })
       .catch(function(err) {
         console.log("Something went wrong!", err);

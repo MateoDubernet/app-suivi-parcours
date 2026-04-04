@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Box, Text, Input, Button } from "@chakra-ui/react";
-import { protectRoute } from "@/component/atoms/protectRoute";
+import { protectRoute } from "@/app/component/atoms/protectRoute";
 import { useRouter } from "next/navigation";
 
 const Profile = () => {
-    const email = Cookies.get("user");
-    const router = useRouter()
-  const userApiUrl = "http://localhost:3000/itineraire";
+  const email = Cookies.get("user");
+  const router = useRouter()
+  const userApiUrl = "http://localhost:3002/itineraire";
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [password, setPassword] = useState("");
@@ -101,47 +101,47 @@ const Profile = () => {
     }
   }, []);
 
-const handleModif = () => {
-  const requestData = {
-    prenom: firstname,
-    nom: lastname,
-    password: password,
-    email: newEmail,
-    phoneNumber: phoneNumber,
-    address: address,
+  const handleModif = () => {
+    const requestData = {
+      prenom: firstname,
+      nom: lastname,
+      password: password,
+      email: newEmail,
+      phoneNumber: phoneNumber,
+      address: address,
+    };
+
+    fetch(`${userApiUrl}/user/update/${email}`, {
+      method: "PUT",
+      body: JSON.stringify(requestData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          // La requête a réussi
+          let encodedEmail = ''
+          if (requestData.email) {
+            encodedEmail = encodeURIComponent(requestData.email);
+          }
+
+          Cookies.remove('user');
+          Cookies.set('user', encodedEmail);
+
+          router.push('/dashboard');
+        } else {
+          res.text().then((text) => {
+            alert(`Erreur ${res.status}: ${text}`);
+          });
+        }
+      })
+      .catch(function (err) {
+        console.log("Une erreur s'est produite !", err);
+      });
   };
 
-  fetch(`${userApiUrl}/user/update/${email}`, {
-    method: "PUT",
-    body: JSON.stringify(requestData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        // La requête a réussi
-        let encodedEmail = ''
-        if (requestData.email) {
-          encodedEmail = encodeURIComponent(requestData.email);
-        }
-        
-        Cookies.remove('user');
-        Cookies.set('user', encodedEmail);
-
-        router.push('/dashboard');
-      } else {
-        res.text().then((text) => {
-          alert(`Erreur ${res.status}: ${text}`);
-        });
-      }
-    })
-    .catch(function (err) {
-      console.log("Une erreur s'est produite !", err);
-    });
-};
-useEffect(() => {
-
+  useEffect(() => {
     if (user) {
       fetch(`${userApiUrl}/tous/${user.id}`, {
         method: "GET",
@@ -149,30 +149,30 @@ useEffect(() => {
           "Content-Type": "application/json",
         },
       })
-        .then((response) => {
-          if (response.status === 200) {
-            // La requête a réussi, vous pouvez maintenant traiter les données de l'utilisateur
-            response.json().then((data) => {
-              setData(data);
-            });
-          } else {
-            console.error(
-              "Erreur lors de la récupération des données itinéraire de l'utilisateur."
-            );
-          }
-        })
-        .catch((error) => {
+      .then((response) => {
+        if (response.status === 200) {
+          // La requête a réussi, vous pouvez maintenant traiter les données de l'utilisateur
+          response.json().then((data) => {
+            setData(data);
+          });
+        } else {
           console.error(
-            "Erreur lors de la récupération des données itinéraire de l'utilisateur :",
-            error
+            "Erreur lors de la récupération des données itinéraire de l'utilisateur."
           );
-        });
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "Erreur lors de la récupération des données itinéraire de l'utilisateur :",
+          error
+        );
+      });
     }
   }, [user]);
 
   return (
     <Box h="100vh">
-      <Text fontSize="2xl">Profil de l'utilisateur</Text>
+      <Text fontSize="2xl">Profil de l&apos;utilisateur</Text>
       {user ? (
         <Box>
           {isEditing ? (

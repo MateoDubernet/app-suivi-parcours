@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMapEvents, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import '../../app/page.module.css';
-import style from '../../app/page.module.css';
+import style from '../../page.module.css';
 import L from 'leaflet';
 import { Button } from '@chakra-ui/react';
 import Cookies from 'js-cookie';
 
 function Maps() {
-  const userApiUrl = 'http://localhost:3000/itineraire'
+  const userApiUrl = 'http://localhost:3002/itineraire'
   const [stationData, setStationData] = useState<any[]>([]);
   const [waypoints, setWaypoints] = useState<any[]>([]);
   const [itinerary, setItinerary] = useState<any[]>([]);

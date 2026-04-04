@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+# --- BASE DE DONNÉES AUTHENTIFICATION ---
+  db-auth:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=bike_travel_user
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pauth_password"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+
+  # --- BASE DE DONNÉES ITINÉRAIRES ---
+  db-itinerary:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=itinary_api
+    volumes:
+      - ./itinary_api.sql:/docker-entrypoint-initdb.d/itinary_api.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pitinerary_password"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+
+  # --- API AUTHENTIFICATION ---
+  auth-api:
+    build: ./Authentification
+    command: sh -c "sleep 10 && node index.js"
+    ports:
+      - "3001:3001"
+    environment:
+      - DB_HOST=db-auth
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=bike_travel_user
+    depends_on:
+      db-auth:
+        condition: service_healthy
+
+  # --- API ITINÉRAIRES ---
+  itinary-api:
+    build: ./Itinary_API
+    command: sh -c "sleep 10 && node index.js"
+    ports:
+      - "3002:3002"
+    environment:
+      - DB_HOST=db-itinerary
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=itinary_api
+      - AUTH_API_URL=http://auth-api:3001
+    depends_on:
+      auth-api:
+        condition: service_started
+      db-itinerary:
+        condition: service_healthy
+
+  # --- FRONTEND (NEXT.JS) ---
+  frontend:
+    build: ./front-end-bike-travel
+    ports:
+      - "80:3000"
+    environment:
+      - NEXT_PUBLIC_AUTH_API_URL=http://localhost:3001
+      - NEXT_PUBLIC_ITINARY_API_URL=http://localhost:3002
+    depends_on:
+      - auth-api
+      - itinary-api

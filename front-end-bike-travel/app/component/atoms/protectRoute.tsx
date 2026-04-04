@@ -12,7 +12,7 @@ export const protectRoute = (Component: React.FC) => {
         // Redirigez l'utilisateur vers la page de connexion s'il n'est pas authentifié
         router.push('/login'); // Personnalisez la redirection selon vos besoins
       }
-    }, [userCookie]);
+    }, [router, userCookie]);
 
     // Vous n'avez pas besoin de retourner null ici, il vous suffit de laisser le composant gérer la redirection.
 

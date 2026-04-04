@@ -5,7 +5,7 @@ import { useState } from "react";
 import Cookies from 'js-cookie';
 
 export default function Login() {
-  const userApiUrl = 'http://localhost:3000'
+  const userApiUrl = 'http://localhost:3002'
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [password, setPassword] = useState("");
@@ -24,41 +24,39 @@ export default function Login() {
     router.push(`${route}`);
   };
 
-const handleLogin = () => {
-  const requestData = {
-    email: email,
-    password: password,
-  };
+  const handleLogin = () => {
+    const requestData = {
+      email: email,
+      password: password,
+    };
 
-  fetch(`${userApiUrl}/itineraire/login`, {
-    method: "POST",
-    body: JSON.stringify(requestData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => {
-      if (res.status !== 200) {
-        res.text().then((text) => {
-          alert(`Erreur ${res.status}: ${text}`);
-        });
-      } else {
-        res.text().then((text) => { // Supposons que la réponse contient les données de l'utilisateur au format JSON
-
-          // Stockez l'objet utilisateur dans un cookie nommé 'user'
-          Cookies.set('user', requestData.email);
-
-          // Redirigez l'utilisateur vers la page de tableau de bord
-          handdleRedirection('/dashboard');
-        });
-      }
+    fetch(`${userApiUrl}/itineraire/login`, {
+      method: "POST",
+      body: JSON.stringify(requestData),
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
-    .catch(function (err) {
-      console.log("Une erreur s'est produite !", err);
-    });
-};
+      .then((res) => {
+        if (res.status !== 200) {
+          res.text().then((text) => {
+            alert(`Erreur ${res.status}: ${text}`);
+          });
+        } else {
+          res.text().then((text) => { // Supposons que la réponse contient les données de l'utilisateur au format JSON
 
+            // Stockez l'objet utilisateur dans un cookie nommé 'user'
+            Cookies.set('user', requestData.email);
 
+            // Redirigez l'utilisateur vers la page de tableau de bord
+            handdleRedirection('/dashboard');
+          });
+        }
+      })
+      .catch(function (err) {
+        console.log("Une erreur s'est produite !", err);
+      });
+  };
 
   return (
     <Flex
@@ -135,7 +133,7 @@ const handleLogin = () => {
                 backgroundColor={"#ec7402"}
                 onClick={() => handdleRedirection("/register")}
                 rounded={"full"}>
-                    M'inscrire
+                    M&apos;inscrire
                 </Button>
             </VStack>
         </VStack>

@@ -3,7 +3,7 @@ const router = express.Router();
 const fetch = require("node-fetch"); // Assurez-vous que 'node-fetch' est installé si vous l'exécutez côté serveur
 
 // URL de votre API d'authentification
-const authApiUrl = "http://localhost:4000"; // Remplacez par l'URL réelle de votre API d'authentification
+const authApiUrl = process.env.AUTH_API_URL; // Remplacez par l'URL réelle de votre API d'authentification
 
 // Route pour l'inscription
 router.post("/register", async (req, res) => {

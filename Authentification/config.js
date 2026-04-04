@@ -1,6 +1,5 @@
 const config = {
-    port: process.env.NODE_ENV === 'test' ? 3000 : 4000
-  };
-  
-  module.exports = config;
-  
+    port: 3001
+};
+
+module.exports = config;
