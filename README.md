@@ -27,9 +27,11 @@ Cette application web permet de créer et d'enregistrer des itinéraires personn
 ```
 
 ### 3. Accès
-**Application (Next.js)** : http://localhost (Port 80)
-**API Auth** : http://localhost:3001
-**API Itinéraires** : http://localhost:3002
+- **Application (Next.js)** : http://localhost (Port 80)
+
+- **API Auth** : http://localhost:3001
+
+- **API Itinéraires** : http://localhost:3002
 
 [!IMPORTANT]
 Assurez-vous que les ports 80, 3001 et 3002 ne sont pas déjà utilisés par une autre application sur votre machine avant de lancer le conteneur.
