@@ -3,12 +3,10 @@
 ## Présentation
 Cette application web permet de créer et d'enregistrer des itinéraires personnalisés en sélectionnant deux points sur une carte interactive. Ce projet a été réalisé en équipe durant mon alternance dans le cadre d'un devoir maison pour démontrer la gestion d'une architecture en microservices.
 
-### Architecture
-**Frontend** : Next.js (Cartographie interactive et interface utilisateur).
-**Microservice Auth** : Express.js (Gestion des sessions, inscriptions et connexions).
-**Microservice Itinéraires** : Express.js (CRUD des parcours et stockage géographique).
-**Bases de données** : 2 instances MySQL distinctes pour une isolation totale des données.
-**Infrastructure** : Docker & Docker Compose.
+### Stack Technique
+- **Next.js**.
+- **Expressjs**.
+- **Docker**.
 
 ---
 
@@ -21,20 +19,16 @@ Cette application web permet de créer et d'enregistrer des itinéraires personn
 ### 2. Lancement (Docker)
 **Prérequis :** [Docker Desktop](https://www.docker.com/products/docker-desktop) installé et lancé.
 
+[!IMPORTANT]
+Assurez-vous que les ports 80, 3001 et 3002 ne sont pas déjà utilisés par une autre application sur votre machine avant de lancer le conteneur.
+
 ```bash
     cd ./app-suivi-parcours
     docker-compose up --build
 ```
 
 ### 3. Accès
-- **Application (Next.js)** : http://localhost (Port 80)
-
-- **API Auth** : http://localhost:3001
-
-- **API Itinéraires** : http://localhost:3002
-
-[!IMPORTANT]
-Assurez-vous que les ports 80, 3001 et 3002 ne sont pas déjà utilisés par une autre application sur votre machine avant de lancer le conteneur.
+Ouvrir un navigateur web et aller à l'adresse: http://localhost
 
 ---
 

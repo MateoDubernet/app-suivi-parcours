@@ -62,7 +62,7 @@ services:
       db-itinerary:
         condition: service_healthy
 
-  # --- FRONTEND (NEXT.JS) ---
+  # --- FRONTEND ---
   frontend:
     build: ./front-end-bike-travel
     ports:
