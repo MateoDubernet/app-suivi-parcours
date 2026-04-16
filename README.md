@@ -4,9 +4,9 @@
 Cette application web permet de créer et d'enregistrer des itinéraires personnalisés en sélectionnant deux points sur une carte interactive. Ce projet a été réalisé en équipe durant mon alternance dans le cadre d'un devoir maison pour démontrer la gestion d'une architecture en microservices.
 
 ### Stack Technique
-- **Next.js**.
-- **Expressjs**.
-- **Docker**.
+- **Next.js**
+- **Expressjs**
+- **Docker**
 
 ---
 
